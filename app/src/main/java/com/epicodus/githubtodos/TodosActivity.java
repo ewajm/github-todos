@@ -1,6 +1,7 @@
 package com.epicodus.githubtodos;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,10 +33,12 @@ public class TodosActivity extends AppCompatActivity {
         int position = intent.getIntExtra("project", 0);
         String projectName = intent.getStringExtra("projectName");
         mProjectNameView.setText(projectName);
+        Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
+        mProjectNameView.setTypeface(sciFont);
         String[][] todoArrays = {{"Make thing work", "Make it not look terrible", "Figure out how to do the thing"}, {"Make it stop doing the thing", "Figure out why its doing the thing", "Make the colors not eyesearing"}, {"Add feature", "Remove feature", "Think of more features"}, {"Refactor", "Rewrite", "Recycle"}};
         ArrayList<String> thisArray = new ArrayList<>(Arrays.asList(todoArrays[position]));
         Log.i(TAG, "onCreate: " + thisArray.toString());
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, thisArray);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.custom_todo_list_item, thisArray);
         mTodoListView.setAdapter(adapter);
 
     }

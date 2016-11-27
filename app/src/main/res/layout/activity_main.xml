@@ -35,7 +35,8 @@
         android:textColorHint="@color/colorSecondaryText"
         android:textAlignment="center"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorPrimaryLight"/>
 
     <TextView
         android:layout_width="wrap_content"
