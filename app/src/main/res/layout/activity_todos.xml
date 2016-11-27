@@ -29,7 +29,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/todoListView"
         android:layout_margin="10dp"
-        android:layout_above="@id/addTodoLinearLayout"
+        android:layout_above="@+id/addTodoLinearLayout"
         />
 
     <LinearLayout
@@ -46,7 +46,7 @@
             android:padding="9dp"
             android:layout_weight="1"
             android:id="@+id/addTodoInput"
-            android:hint="New Todo Goes Here"
+            android:hint="@string/new_todo_hint"
             android:textColorHint="@color/colorSecondaryText"
             android:background="@color/colorPrimaryLight"/>
         <Button
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:id="@+id/addTodoButton"
-            android:text="+"
+            android:text="@string/plus_sign"
             android:textSize="24sp"
             />
     </LinearLayout>

@@ -6,4 +6,6 @@
     <string name="take_me_to_the_todos">Take Me To The TODOs!</string>
     <string name="your_username">your username</string>
     <string name="user_greeting">"Hello %s, here are your projects:"</string>
+    <string name="plus_sign">+</string>
+    <string name="new_todo_hint">New Todo Goes Here</string>
 </resources>
