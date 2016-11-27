@@ -13,42 +13,6 @@
         android:src="@drawable/bgdark"
         android:scaleType="centerCrop" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/take_me_to_the_todos"
-        android:id="@+id/loginButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
-
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/usernameInput"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:inputType=""
-        android:hint="@string/your_username"
-        android:textColorHint="@color/colorSecondaryText"
-        android:textAlignment="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:textColor="@color/colorPrimaryLight"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/enter_username_text"
-        android:id="@+id/beginTextView"
-        android:textSize="20sp"
-        android:layout_above="@+id/usernameInput"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="44dp"
-        android:textColor="@color/colorPrimaryLight"
-        android:textStyle="normal|bold"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -66,5 +30,74 @@
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_username_text"
+        android:id="@+id/beginTextView"
+        android:textSize="22sp"
+        android:textColor="@color/colorPrimaryLight"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/subHeadingView"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:layout_marginTop="50dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/usernameInput"
+        android:inputType="text"
+        android:hint="@string/username"
+        android:textColorHint="@color/colorDivider"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryLight"
+        android:layout_marginTop="18dp"
+        android:layout_margin="10dp"
+        android:layout_above="@+id/lookupButton"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/todos_lookup"
+        android:id="@+id/lookupButton"
+        android:layout_margin="10dp"
+        android:layout_above="@+id/usernameLoginInput"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/usernameLoginInput"
+        android:inputType="text"
+        android:hint="@string/your_username"
+        android:textColorHint="@color/colorDivider"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryLight"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_above="@+id/passwordInput"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/passwordInput"
+        android:inputType="textPassword"
+        android:hint="@string/your_password"
+        android:textColorHint="@color/colorDivider"
+        android:textAlignment="center"
+        android:layout_margin="10dp"
+        android:textColor="@color/colorPrimaryLight"
+        android:layout_above="@+id/loginButton"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/todos_login"
+        android:id="@+id/loginButton"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"/>
 
 </RelativeLayout>
