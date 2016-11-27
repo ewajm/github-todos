@@ -22,7 +22,7 @@ import java.util.Arrays;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class TodosActivity extends AppCompatActivity {
+public class TodosActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = TodosActivity.class.getSimpleName();
     @Bind(R.id.projectNameView)
     TextView mProjectNameView;
@@ -47,27 +47,28 @@ public class TodosActivity extends AppCompatActivity {
         mProjectNameView.setText(projectName);
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mProjectNameView.setTypeface(sciFont);
+
+        //this section will be replaced by database/api lookup
         String[][] todoArrays = {{"Make thing work", "Make it not look terrible", "Figure out how to do the thing"}, {"Make it stop doing the thing", "Figure out why its doing the thing", "Make the colors not eyesearing"}, {"Add feature", "Remove feature", "Think of more features"}, {"Refactor", "Rewrite", "Recycle"}};
         mThisTodoArray = new ArrayList<>(Arrays.asList(todoArrays[position]));
-        Log.i(TAG, "onCreate: " + mThisTodoArray.toString());
+
         mAdapter = new ArrayAdapter(this, R.layout.custom_todo_list_item, mThisTodoArray);
         mTodoListView.setAdapter(mAdapter);
-        mAddTodoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newTodo = mAddTodoInput.getText().toString();
-                if(newTodo.length() > 0){
-                    mThisTodoArray.add(newTodo);
-                    mAdapter.notifyDataSetChanged();
+        mAddTodoButton.setOnClickListener(this);
+    }
 
-                    //for hiding the keyboard after button is pressed
-                    InputMethodManager imm = (InputMethodManager)getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(mAddTodoInput.getWindowToken(), 0);
-                } else {
-                    Toast.makeText(TodosActivity.this, "Please enter a todo first!", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+    @Override
+    public void onClick(View view) {
+        String newTodo = mAddTodoInput.getText().toString();
+        if(newTodo.length() > 0){
+            mThisTodoArray.add(newTodo);
+            mAdapter.notifyDataSetChanged();
 
+            //for hiding the keyboard after button is pressed
+            InputMethodManager imm = (InputMethodManager)getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mAddTodoInput.getWindowToken(), 0);
+        } else {
+            Toast.makeText(TodosActivity.this, "Please enter a todo first!", Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -15,13 +15,15 @@ import org.w3c.dom.Text;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
-    @Bind(R.id.loginButton)
-    Button mLoginButton;
-    @Bind(R.id.usernameInput)
-    EditText mUsernameInput;
-    @Bind (R.id.subHeadingView)
-    TextView mSubHeadingView;
+import static com.epicodus.githubtodos.R.string.username;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    @Bind(R.id.loginButton) Button mLoginButton;
+    @Bind(R.id.lookupButton) Button mLookupButton;
+    @Bind(R.id.usernameInput) EditText mUsernameInput;
+    @Bind(R.id.usernameLoginInput) EditText mUsernameLoginInput;
+    @Bind(R.id.passwordInput) EditText mPasswordInput;
+    @Bind (R.id.subHeadingView) TextView mSubHeadingView;
     @Bind (R.id.beginTextView) TextView mBeginTextView;
 
     @Override
@@ -33,18 +35,32 @@ public class MainActivity extends AppCompatActivity {
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mSubHeadingView.setTypeface(sciFont);
         mBeginTextView.setTypeface(sciFont);
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = mUsernameInput.getText().toString();
-                if(username.length() > 0){
-                    Intent intent = new Intent(MainActivity.this, ReposActivity.class);
-                    intent.putExtra("username", username);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(MainActivity.this, "Please enter a username!", Toast.LENGTH_LONG).show();
-                }
+        mLoginButton.setOnClickListener(this);
+        mLookupButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == mLookupButton){
+            String username = mUsernameInput.getText().toString();
+            if(username.length() > 0){
+                Intent intent = new Intent(MainActivity.this, ReposActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
+            } else {
+                Toast.makeText(MainActivity.this, "Please enter a username!", Toast.LENGTH_SHORT).show();
             }
-        });
+        } else {
+            String username = mUsernameLoginInput.getText().toString();
+            String password = mPasswordInput.getText().toString();
+            if(username.length() > 0 && password.length() > 0){
+                Intent intent = new Intent(MainActivity.this, ReposActivity.class);
+                intent.putExtra("username", username);
+                intent.putExtra("password", password);
+                startActivity(intent);
+            } else {
+                Toast.makeText(MainActivity.this, "Please enter a username and password!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

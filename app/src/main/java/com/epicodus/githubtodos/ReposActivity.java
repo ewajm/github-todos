@@ -31,7 +31,9 @@ public class ReposActivity extends AppCompatActivity {
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
 
+        //this will be replaced by api/database lookup
         final String[] sampleProjects = {"Sample Project 1", "Sample Project 2", "Sample Project 3", "To Do List"};
+
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.custom_list_item, sampleProjects);
         mProjectListView.setAdapter(adapter);
         mProjectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
