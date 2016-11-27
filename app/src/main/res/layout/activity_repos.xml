@@ -5,7 +5,16 @@
     android:id="@+id/activity_repos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.epicodus.githubtodos.ReposActivity">
+    tools:context="com.epicodus.githubtodos.ReposActivity"
+    android:background="@color/colorPrimaryLight">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/greetingTextView"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/projectListView"
+        android:layout_margin="10dp"/>
 
     <TextView
         android:text="TextView"
@@ -13,15 +22,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/greetingTextView"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
         android:textSize="20sp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/greetingTextView"
         android:layout_centerHorizontal="true"
-        android:id="@+id/projectListView"/>
+        android:textColor="@color/colorPrimaryText"/>
 </RelativeLayout>

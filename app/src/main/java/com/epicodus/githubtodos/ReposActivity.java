@@ -32,7 +32,7 @@ public class ReposActivity extends AppCompatActivity {
         mGreetingTextView.setTypeface(sciFont);
 
         String[] sampleProjects = {"Sample Project 1", "Sample Project 2", "Sample Project 3", "To Do List"};
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, sampleProjects);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.custom_list_item, sampleProjects);
         mProjectListView.setAdapter(adapter);
         mProjectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
