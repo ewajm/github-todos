@@ -31,7 +31,7 @@ public class ReposActivity extends AppCompatActivity {
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
 
-        String[] sampleProjects = {"Sample Project 1", "Sample Project 2", "Sample Project 3", "To Do List"};
+        final String[] sampleProjects = {"Sample Project 1", "Sample Project 2", "Sample Project 3", "To Do List"};
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.custom_list_item, sampleProjects);
         mProjectListView.setAdapter(adapter);
         mProjectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -39,6 +39,7 @@ public class ReposActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent projectIntent = new Intent(ReposActivity.this, TodosActivity.class);
                 projectIntent.putExtra("project", i);
+                projectIntent.putExtra("projectName", sampleProjects[i]);
                 startActivity(projectIntent);
             }
         });
