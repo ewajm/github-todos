@@ -5,4 +5,5 @@
     <string name="enter_username_text">Enter Your GitHub username to begin</string>
     <string name="take_me_to_the_todos">Take Me To The TODOs!</string>
     <string name="your_username">your username</string>
+    <string name="user_greeting">"Hello %s"</string>
 </resources>
