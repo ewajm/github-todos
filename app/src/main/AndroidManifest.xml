@@ -16,6 +16,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ReposActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity">
+            </meta-data>
         </activity>
         <activity android:name=".TodosActivity">
         </activity>
