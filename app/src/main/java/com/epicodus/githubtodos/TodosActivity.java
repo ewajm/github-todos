@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -14,8 +13,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,7 +20,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class TodosActivity extends AppCompatActivity implements View.OnClickListener{
-    private static final String TAG = TodosActivity.class.getSimpleName();
     @Bind(R.id.projectNameView) TextView mProjectNameView;
     @Bind(R.id.todoListView) ListView mTodoListView;
     @Bind(R.id.addTodoInput) EditText mAddTodoInput;

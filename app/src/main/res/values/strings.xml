@@ -12,4 +12,5 @@
     <string name="new_todo_hint">New Todo Goes Here</string>
     <string name="your_password">your password</string>
     <string name="main_heading_aside">At last, you can easily obsess about them wherever you go</string>
+    <string name="bg_content_description">Background image with computer and Github usb stick</string>
 </resources>

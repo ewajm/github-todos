@@ -9,13 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static com.epicodus.githubtodos.R.string.username;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     @Bind(R.id.loginButton) Button mLoginButton;
