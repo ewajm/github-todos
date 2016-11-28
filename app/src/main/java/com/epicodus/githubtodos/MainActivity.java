@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.passwordInput) EditText mPasswordInput;
     @Bind (R.id.subHeadingView) TextView mSubHeadingView;
     @Bind (R.id.beginTextView) TextView mBeginTextView;
+    @Bind(R.id.asideTextView) TextView mAsideTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mSubHeadingView.setTypeface(sciFont);
         mBeginTextView.setTypeface(sciFont);
+        mAsideTextView.setTypeface(sciFont);
         mLoginButton.setOnClickListener(this);
         mLookupButton.setOnClickListener(this);
     }

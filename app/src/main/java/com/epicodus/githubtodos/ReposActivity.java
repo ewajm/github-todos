@@ -14,10 +14,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ReposActivity extends AppCompatActivity {
-    @Bind(R.id.greetingTextView)
-    TextView mGreetingTextView;
-    @Bind(R.id.projectListView)
-    ListView mProjectListView;
+    @Bind(R.id.greetingTextView) TextView mGreetingTextView;
+    @Bind(R.id.projectListView) ListView mProjectListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

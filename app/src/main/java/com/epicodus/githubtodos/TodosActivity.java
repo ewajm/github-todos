@@ -24,14 +24,10 @@ import butterknife.ButterKnife;
 
 public class TodosActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = TodosActivity.class.getSimpleName();
-    @Bind(R.id.projectNameView)
-    TextView mProjectNameView;
-    @Bind(R.id.todoListView)
-    ListView mTodoListView;
-    @Bind(R.id.addTodoInput)
-    EditText mAddTodoInput;
-    @Bind(R.id.addTodoButton)
-    Button mAddTodoButton;
+    @Bind(R.id.projectNameView) TextView mProjectNameView;
+    @Bind(R.id.todoListView) ListView mTodoListView;
+    @Bind(R.id.addTodoInput) EditText mAddTodoInput;
+    @Bind(R.id.addTodoButton) Button mAddTodoButton;
     private ArrayList<String> mThisTodoArray;
     private ArrayAdapter mAdapter;
 
@@ -48,7 +44,7 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mProjectNameView.setTypeface(sciFont);
 
-        //this section will be replaced by database/api lookup
+        //this will be replaced by database/api lookup
         String[][] todoArrays = {{"Make thing work", "Make it not look terrible", "Figure out how to do the thing"}, {"Make it stop doing the thing", "Figure out why its doing the thing", "Make the colors not eyesearing"}, {"Add feature", "Remove feature", "Think of more features"}, {"Refactor", "Rewrite", "Recycle"}};
         mThisTodoArray = new ArrayList<>(Arrays.asList(todoArrays[position]));
 
