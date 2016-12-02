@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_todos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.TodosActivity"
+    android:background="@color/colorPrimaryDark">
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/projectNameView"
+        android:textSize="25sp"
+        android:textColor="@color/colorAccent"
+        android:layout_margin="10dp"
+        android:textAlignment="center"
+        />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/projectNameView"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/todoListView"
+        android:layout_margin="10dp"
+        android:layout_above="@+id/addTodoLinearLayout"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/addTodoLinearLayout"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="9dp"
+            android:layout_weight="1"
+            android:id="@+id/addTodoInput"
+            android:hint="@string/new_todo_hint"
+            android:textColorHint="@color/colorSecondaryText"
+            android:background="@color/colorPrimaryLight"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:id="@+id/addTodoButton"
+            android:text="@string/plus_sign"
+            android:textSize="24sp"
+            />
+    </LinearLayout>
+</RelativeLayout>

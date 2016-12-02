@@ -2,5 +2,15 @@
     <string name="app_name">Github TODOs</string>
     <string name="main_subheading">All your project TODOs and issues in one place!</string>
     <string name="login_text">Or Login With Github To See and Edit Your TODOs</string>
-    <string name="enter_username_text">Enter a Github Username to see TODOs</string>
+    <string name="enter_username_text">Enter a username or login to Github to begin</string>
+    <string name="todos_lookup">Look Up Todos!</string>
+    <string name="todos_login">Login and Look Up Todos!</string>
+    <string name="username">username</string>
+    <string name="your_username">your username</string>
+    <string name="user_greeting">"Hello %s, here are your projects:"</string>
+    <string name="plus_sign">+</string>
+    <string name="new_todo_hint">New Todo Goes Here</string>
+    <string name="your_password">your password</string>
+    <string name="main_heading_aside">At last, you can easily obsess about them wherever you go</string>
+    <string name="bg_content_description">Background image with computer and Github usb stick</string>
 </resources>
