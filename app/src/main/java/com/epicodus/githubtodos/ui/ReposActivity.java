@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.epicodus.githubtodos.R;
+import com.epicodus.githubtodos.adapters.RepoListAdapter;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.services.GithubService;
 
@@ -21,12 +22,14 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+//TODO: add username validation
+
 public class ReposActivity extends AppCompatActivity {
     private static final String TAG = ReposActivity.class.getSimpleName();
     @Bind(R.id.greetingTextView) TextView mGreetingTextView;
-    @Bind(R.id.projectRecyclerView)
-    RecyclerView mProjectRecyclerView;
-    ArrayList<Repo> mRepos;
+    @Bind(R.id.projectRecyclerView) RecyclerView mProjectRecyclerView;
+    public ArrayList<Repo> mRepos;
+    private RepoListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +60,11 @@ public class ReposActivity extends AppCompatActivity {
                 ReposActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        final String[] projectNames = new String[mRepos.size()];
-                        for(int i = 0; i < mRepos.size(); i++){
-                            projectNames[i] = mRepos.get(i).getName();
-                        }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(ReposActivity.this, R.layout.custom_list_item, projectNames);
-                       // mProjectRecyclerView.setAdapter(adapter);
+                        mAdapter = new RepoListAdapter(mRepos, getApplicationContext());
+                        mProjectRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ReposActivity.this);
+                        mProjectRecyclerView.setLayoutManager(layoutManager);
+                        mProjectRecyclerView.setHasFixedSize(true);
                     }
                 });
 
