@@ -12,6 +12,10 @@ public class Todo {
     String mCreated;
     String mNotes;
 
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
     public Todo() {
     }
 

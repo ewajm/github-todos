@@ -37,7 +37,9 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.addTodoInput) EditText mAddTodoInput;
     @Bind(R.id.addTodoButton) Button mAddTodoButton;
     private ArrayList<Todo> mTodoArray;
-    private ArrayAdapter mAdapter;
+    private ArrayAdapter<String> mAdapter;
+    private ArrayList<String> mTodoTitles;
+    private Repo mRepo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +48,11 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        Repo repo = Parcels.unwrap(intent.getParcelableExtra("repo"));
-        mProjectNameView.setText(repo.getName());
+        mRepo = Parcels.unwrap(intent.getParcelableExtra("repo"));
+        mProjectNameView.setText(mRepo.getName());
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mProjectNameView.setTypeface(sciFont);
-        getTodos(repo.getName());
-        //this will be replaced by database/api lookup
-//        String[][] todoArrays = {{"Make thing work", "Make it not look terrible", "Figure out how to do the thing"}, {"Make it stop doing the thing", "Figure out why its doing the thing", "Make the colors not eyesearing"}, {"Add feature", "Remove feature", "Think of more features"}, {"Refactor", "Rewrite", "Recycle"}};
-//        mThisTodoArray = new ArrayList<>(Arrays.asList(todoArrays[position]));
-//
-//        mAdapter = new ArrayAdapter(this, R.layout.custom_todo_list_item, mThisTodoArray);
-//        mTodoListView.setAdapter(mAdapter);
-//        mAddTodoButton.setOnClickListener(this);
+        getTodos(mRepo.getName());
     }
 
     public void getTodos(String repoName){
@@ -71,7 +66,18 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 mTodoArray = githubService.processIssueResponse(response);
-
+                mTodoTitles = new ArrayList<>();
+                for(int i = 0; i < mTodoArray.size(); i++){
+                    mTodoTitles.add(mTodoArray.get(i).getTitle());
+                }
+                TodosActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter = new ArrayAdapter<>(TodosActivity.this, R.layout.custom_todo_list_item, mTodoTitles);
+                        mTodoListView.setAdapter(mAdapter);
+                        mAddTodoButton.setOnClickListener(TodosActivity.this);
+                    }
+                });
             }
         });
     }
@@ -80,9 +86,11 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        String newTodo = mAddTodoInput.getText().toString();
-        if(newTodo.length() > 0){
-            mThisTodoArray.add(newTodo);
+        if(mAddTodoInput.getText().toString().length() > 0){
+            Todo newTodo = new Todo();
+            newTodo.setTitle("TODO: " + mAddTodoInput.getText().toString());
+            mTodoArray.add(newTodo);
+            mTodoTitles.add(newTodo.getTitle());
             mAdapter.notifyDataSetChanged();
 
             //for hiding the keyboard after button is pressed
