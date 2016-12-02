@@ -2,6 +2,7 @@ package com.epicodus.githubtodos.services;
 
 import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.models.Repo;
+import com.epicodus.githubtodos.models.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +38,20 @@ public class GithubService {
         call.enqueue(callback);
     }
 
-
+    //limit to only issues created by owner?
+    public static void getRepoTodos(String repoName, Callback callback){
+        OkHttpClient client = new OkHttpClient.Builder().build();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.GITHUB_API_URL).newBuilder();
+        urlBuilder.addPathSegment(Constants.GITHUB_REPOS_PATH);
+        urlBuilder.addPathSegment(User.getUsername());
+        urlBuilder.addPathSegment(repoName);
+        urlBuilder.addPathSegment(Constants.GITHUB_ISSUES_PATH);
+        urlBuilder.addQueryParameter(Constants.GITHUB_TOKEN_QUERY, Constants.GITHUB_TOKEN);
+        String url = urlBuilder.toString();
+        Request request = new Request.Builder().url(url).build();
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+    }
 
     public ArrayList<Repo> processRepoResponse(Response response){
         ArrayList<Repo> repoList = new ArrayList<>();

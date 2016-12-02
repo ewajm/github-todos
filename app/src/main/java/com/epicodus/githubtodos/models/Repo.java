@@ -5,18 +5,18 @@ import org.parceler.Parcel;
 @Parcel
 public class Repo {
     String mName;
-    String description;
-    String language;
-    String url;
+    String mDescription;
+    String mLanguage;
+    String mUrl;
 
     public Repo() {
     }
 
     public Repo(String name, String description, String language, String url) {
         mName = name;
-        this.description = description;
-        this.language = language;
-        this.url = url;
+        mDescription = description;
+        mLanguage = language;
+        mUrl = url;
     }
 
     public String getName() {
@@ -24,14 +24,14 @@ public class Repo {
     }
 
     public String getDescription() {
-        return description;
+        return mDescription;
     }
 
     public String getLanguage() {
-        return language;
+        return mLanguage;
     }
 
     public String getUrl() {
-        return url;
+        return mUrl;
     }
 }

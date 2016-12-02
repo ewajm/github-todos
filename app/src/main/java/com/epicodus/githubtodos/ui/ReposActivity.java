@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.adapters.RepoListAdapter;
 import com.epicodus.githubtodos.models.Repo;
+import com.epicodus.githubtodos.models.User;
 import com.epicodus.githubtodos.services.GithubService;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class ReposActivity extends AppCompatActivity {
     @Bind(R.id.projectRecyclerView) RecyclerView mProjectRecyclerView;
     public ArrayList<Repo> mRepos;
     private RepoListAdapter mAdapter;
+    private String mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,9 @@ public class ReposActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        getRepos(username);
-        mGreetingTextView.setText(String.format(getString(R.string.user_greeting), username));
+        mUsername = intent.getStringExtra("username");
+        getRepos(mUsername);
+        mGreetingTextView.setText(String.format(getString(R.string.user_greeting), mUsername));
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
     }
@@ -56,7 +58,7 @@ public class ReposActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 mRepos = githubService.processRepoResponse(response);
-                //this will be replaced by api/database lookup
+                User.setUsername(mUsername);
                 ReposActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
