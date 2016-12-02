@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@drawable/list_element_bg"
-    android:padding="10dp"
-    android:layout_margin="5dp">
+              android:padding="10dp"
+              android:layout_margin="5dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/repoItemLinearLayout">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,11 +30,11 @@
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/repoItemLinearLayout"
         android:text="Repo Description"
         android:textSize="14sp"
         android:textColor="@color/colorIcons"
         android:layout_marginTop="10dp"
         android:id="@+id/repoDescriptionTextView"/>
-</LinearLayout>
+</RelativeLayout>

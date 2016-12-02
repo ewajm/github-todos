@@ -64,18 +64,9 @@ public class ReposActivity extends AppCompatActivity {
                         mProjectRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ReposActivity.this);
                         mProjectRecyclerView.setLayoutManager(layoutManager);
+                        mProjectRecyclerView.setHasFixedSize(true);
                     }
                 });
-
-//                mProjectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                        Intent projectIntent = new Intent(ReposActivity.this, TodosActivity.class);
-//                        projectIntent.putExtra("project", i);
-//                        projectIntent.putExtra("projectName", projectNames[i]);
-//                        startActivity(projectIntent);
-//                    }
-//                });
             }
         });
     }
