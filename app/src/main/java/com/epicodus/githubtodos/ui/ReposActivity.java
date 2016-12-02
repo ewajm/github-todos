@@ -64,7 +64,6 @@ public class ReposActivity extends AppCompatActivity {
                         mProjectRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ReposActivity.this);
                         mProjectRecyclerView.setLayoutManager(layoutManager);
-                        mProjectRecyclerView.setHasFixedSize(true);
                     }
                 });
 

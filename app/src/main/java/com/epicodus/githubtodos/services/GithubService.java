@@ -31,6 +31,7 @@ public class GithubService {
         urlBuilder.addPathSegment(user);
         urlBuilder.addPathSegment(Constants.GITHUB_REPOS_PATH);
         urlBuilder.addQueryParameter(Constants.GITHUB_TOKEN_QUERY, Constants.GITHUB_TOKEN);
+        urlBuilder.addQueryParameter("sort", "updated");
         String url = urlBuilder.toString();
         Request request = new Request.Builder().url(url).build();
         Call call = client.newCall(request);
@@ -46,9 +47,9 @@ public class GithubService {
                 for (int i = 0; i < jsonRepoArray.length(); i++) {
                     JSONObject repoJSON = jsonRepoArray.getJSONObject(i);
                     String name = repoJSON.getString("name");
-                    String language = repoJSON.optString("language", "No language specified");
+                    String language = !repoJSON.getString("language").equals("null")? repoJSON.getString("language"): "No language specified";
                     String url = repoJSON.getString("url");
-                    String description = repoJSON.getString("description");
+                    String description = !repoJSON.getString("description").equals("null") ? repoJSON.getString("description"): "No description provided";
 
                     Repo repo = new Repo(name, description, language, url);
                     repoList.add(repo);
