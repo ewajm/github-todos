@@ -9,6 +9,22 @@ public class Repo {
     String language;
     String url;
 
+    public String getName() {
+        return mName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
     public Repo() {
     }
 

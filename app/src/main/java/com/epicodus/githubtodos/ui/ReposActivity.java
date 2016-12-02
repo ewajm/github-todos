@@ -2,19 +2,18 @@ package com.epicodus.githubtodos.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.epicodus.githubtodos.R;
+import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.services.GithubService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,6 +25,7 @@ public class ReposActivity extends AppCompatActivity {
     private static final String TAG = ReposActivity.class.getSimpleName();
     @Bind(R.id.greetingTextView) TextView mGreetingTextView;
     @Bind(R.id.projectListView) ListView mProjectListView;
+    ArrayList<Repo> mRepos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +39,6 @@ public class ReposActivity extends AppCompatActivity {
         mGreetingTextView.setText(String.format(getString(R.string.user_greeting), username));
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
-
-        //this will be replaced by api/database lookup
-        final String[] sampleProjects = {"Sample Project 1", "Sample Project 2", "Sample Project 3", "To Do List"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.custom_list_item, sampleProjects);
-        mProjectListView.setAdapter(adapter);
-        mProjectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent projectIntent = new Intent(ReposActivity.this, TodosActivity.class);
-                projectIntent.putExtra("project", i);
-                projectIntent.putExtra("projectName", sampleProjects[i]);
-                startActivity(projectIntent);
-            }
-        });
     }
 
     public void getRepos(String username){
@@ -66,8 +51,29 @@ public class ReposActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String jsonData = response.body().string();
-                Log.i(TAG, "onResponse: " + jsonData);
+                mRepos = githubService.processRepoResponse(response);
+                //this will be replaced by api/database lookup
+                ReposActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String[] projectNames = new String[mRepos.size()];
+                        for(int i = 0; i < mRepos.size(); i++){
+                            projectNames[i] = mRepos.get(i).getName();
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(ReposActivity.this, R.layout.custom_list_item, projectNames);
+                        mProjectListView.setAdapter(adapter);
+                    }
+                });
+
+//                mProjectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                        Intent projectIntent = new Intent(ReposActivity.this, TodosActivity.class);
+//                        projectIntent.putExtra("project", i);
+//                        projectIntent.putExtra("projectName", projectNames[i]);
+//                        startActivity(projectIntent);
+//                    }
+//                });
             }
         });
     }
