@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.epicodus.githubtodos.R;
@@ -24,7 +24,8 @@ import okhttp3.Response;
 public class ReposActivity extends AppCompatActivity {
     private static final String TAG = ReposActivity.class.getSimpleName();
     @Bind(R.id.greetingTextView) TextView mGreetingTextView;
-    @Bind(R.id.projectListView) ListView mProjectListView;
+    @Bind(R.id.projectRecyclerView)
+    RecyclerView mProjectRecyclerView;
     ArrayList<Repo> mRepos;
 
     @Override
@@ -61,7 +62,7 @@ public class ReposActivity extends AppCompatActivity {
                             projectNames[i] = mRepos.get(i).getName();
                         }
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(ReposActivity.this, R.layout.custom_list_item, projectNames);
-                        mProjectListView.setAdapter(adapter);
+                       // mProjectRecyclerView.setAdapter(adapter);
                     }
                 });
 
