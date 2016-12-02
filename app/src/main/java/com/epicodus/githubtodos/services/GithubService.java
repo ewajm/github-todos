@@ -23,7 +23,6 @@ import okhttp3.Response;
 
 public class GithubService {
 
-
     public static void getUserRepos(String user, Callback callback){
         OkHttpClient client = new OkHttpClient.Builder().build();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.GITHUB_API_URL).newBuilder();
@@ -37,6 +36,8 @@ public class GithubService {
         Call call = client.newCall(request);
         call.enqueue(callback);
     }
+
+
 
     public ArrayList<Repo> processRepoResponse(Response response){
         ArrayList<Repo> repoList = new ArrayList<>();
