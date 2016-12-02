@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Repo;
+import com.epicodus.githubtodos.models.Todo;
 import com.epicodus.githubtodos.services.GithubService;
 
 import org.parceler.Parcels;
@@ -36,7 +36,7 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.todoListView) ListView mTodoListView;
     @Bind(R.id.addTodoInput) EditText mAddTodoInput;
     @Bind(R.id.addTodoButton) Button mAddTodoButton;
-    private ArrayList<String> mThisTodoArray;
+    private ArrayList<Todo> mTodoArray;
     private ArrayAdapter mAdapter;
 
     @Override
@@ -61,8 +61,8 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void getTodos(String repoName){
-        GithubService githubService = new GithubService();
-        githubService.getRepoTodos(repoName, new Callback() {
+        final GithubService githubService = new GithubService();
+        githubService.getRepoIssues(repoName, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -70,8 +70,8 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String data = response.body().string();
-                Log.i(TAG, "onResponse: " + data);
+                mTodoArray = githubService.processIssueResponse(response);
+
             }
         });
     }

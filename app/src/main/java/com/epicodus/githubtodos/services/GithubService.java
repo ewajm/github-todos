@@ -2,6 +2,7 @@ package com.epicodus.githubtodos.services;
 
 import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.models.Repo;
+import com.epicodus.githubtodos.models.Todo;
 import com.epicodus.githubtodos.models.User;
 
 import org.json.JSONArray;
@@ -39,7 +40,7 @@ public class GithubService {
     }
 
     //limit to only issues created by owner?
-    public static void getRepoTodos(String repoName, Callback callback){
+    public static void getRepoIssues(String repoName, Callback callback){
         OkHttpClient client = new OkHttpClient.Builder().build();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.GITHUB_API_URL).newBuilder();
         urlBuilder.addPathSegment(Constants.GITHUB_REPOS_PATH);
@@ -74,5 +75,29 @@ public class GithubService {
             e.printStackTrace();
         }
         return repoList;
+    }
+
+    public ArrayList<Todo> processIssueResponse(Response response){
+        ArrayList<Todo> todoList = new ArrayList<>();
+        try {
+            String jsonData = response.body().string();
+            if (response.isSuccessful()) {
+                JSONArray jsonTodoArray = new JSONArray(jsonData);
+                for (int i = 0; i < jsonTodoArray.length(); i++) {
+                    JSONObject todoJSON = jsonTodoArray.getJSONObject(i);
+                    String title = todoJSON.getString("title");
+                    if(title.contains("TODO")){
+                        String body = !todoJSON.getString("body").equals("null")? todoJSON.getString("body"): "No body specified";
+                        String url = todoJSON.getString("url");
+                        String created = todoJSON.getString("created_at");
+                        Todo todo = new Todo(title, body, url, created);
+                        todoList.add(todo);
+                    }
+                }
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return todoList;
     }
 }
