@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if(view == mLookupButton){
-            String username = mUsernameInput.getText().toString();
+            String username = mUsernameInput.getText().toString().trim();
             if(username.length() > 0){
                 Intent intent = new Intent(MainActivity.this, ReposActivity.class);
                 intent.putExtra("username", username);

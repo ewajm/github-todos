@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.adapters.RepoListAdapter;
@@ -42,7 +43,6 @@ public class ReposActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mUsername = intent.getStringExtra("username");
         getRepos(mUsername);
-        mGreetingTextView.setText(String.format(getString(R.string.user_greeting), mUsername));
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
     }
@@ -58,15 +58,22 @@ public class ReposActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 mRepos = githubService.processRepoResponse(response);
-                User.setUsername(mUsername);
                 ReposActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter = new RepoListAdapter(mRepos, getApplicationContext());
-                        mProjectRecyclerView.setAdapter(mAdapter);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ReposActivity.this);
-                        mProjectRecyclerView.setLayoutManager(layoutManager);
-                        mProjectRecyclerView.setHasFixedSize(true);
+                        if(mRepos.size() > 0) {
+                            mGreetingTextView.setText(String.format(getString(R.string.user_greeting), mUsername));
+                            User.setUsername(mUsername);
+                            mAdapter = new RepoListAdapter(mRepos, getApplicationContext());
+                            mProjectRecyclerView.setAdapter(mAdapter);
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ReposActivity.this);
+                            mProjectRecyclerView.setLayoutManager(layoutManager);
+                            mProjectRecyclerView.setHasFixedSize(true);
+                        }  else {
+                            Toast.makeText(ReposActivity.this, "Sorry, it appears we couldn't find that username!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ReposActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 });
             }
