@@ -83,8 +83,12 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
                 TodosActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if(mTodoTitles.size() == 0){
+                            mTodoTitles.add("No TODOs yet! Why not add one?");
+                        }
                         mAdapter = new ArrayAdapter<>(TodosActivity.this, R.layout.custom_todo_list_item, mTodoTitles);
                         mTodoListView.setAdapter(mAdapter);
+                        mAddTodoButton.setEnabled(true);
                         mAddTodoButton.setOnClickListener(TodosActivity.this);
                     }
                 });
@@ -100,12 +104,16 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
             Todo newTodo = new Todo();
             newTodo.setTitle("TODO: " + mAddTodoInput.getText().toString());
             mTodoArray.add(newTodo);
+            if(mTodoTitles.get(0).equals("No TODOs yet! Why not add one?")){
+                mTodoTitles.remove(0);
+            }
             mTodoTitles.add(newTodo.getTitle());
             mAdapter.notifyDataSetChanged();
 
             //for hiding the keyboard after button is pressed
             InputMethodManager imm = (InputMethodManager)getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(mAddTodoInput.getWindowToken(), 0);
+            mAddTodoInput.setText("");
         } else {
             Toast.makeText(TodosActivity.this, "Please enter a todo first!", Toast.LENGTH_LONG).show();
         }

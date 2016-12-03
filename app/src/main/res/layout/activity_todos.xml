@@ -57,7 +57,7 @@
             android:id="@+id/addTodoButton"
             android:text="@string/plus_sign"
             android:textSize="24sp"
-            />
+            android:enabled="false"/>
     </LinearLayout>
 
     <TextView
