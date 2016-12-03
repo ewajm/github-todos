@@ -37,6 +37,7 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.todoListView) ListView mTodoListView;
     @Bind(R.id.addTodoInput) EditText mAddTodoInput;
     @Bind(R.id.addTodoButton) Button mAddTodoButton;
+    @Bind(R.id.websiteUrlView) TextView mWebsiteUrlView;
     private ArrayList<Todo> mTodoArray;
     private ArrayAdapter<String> mAdapter;
     private ArrayList<String> mTodoTitles;
@@ -51,9 +52,10 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         mRepo = Parcels.unwrap(intent.getParcelableExtra("repo"));
         mProjectNameView.setText(mRepo.getName());
+        mWebsiteUrlView.setText(mRepo.getUrl());
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mProjectNameView.setTypeface(sciFont);
-        mProjectNameView.setOnClickListener(new View.OnClickListener() {
+        mWebsiteUrlView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mRepo.getUrl()));
