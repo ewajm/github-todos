@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,6 +89,15 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
                         }
                         mAdapter = new ArrayAdapter<>(TodosActivity.this, R.layout.custom_todo_list_item, mTodoTitles);
                         mTodoListView.setAdapter(mAdapter);
+                        mTodoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Intent intent = new Intent(TodosActivity.this, TodoDetailActivity.class);
+                                intent.putExtra("todos", Parcels.wrap(mTodoArray));
+                                intent.putExtra("position", i);
+                                startActivity(intent);
+                            }
+                        });
                         mAddTodoButton.setEnabled(true);
                         mAddTodoButton.setOnClickListener(TodosActivity.this);
                     }
