@@ -11,6 +11,7 @@ public class Todo {
     int mDifficulty;
     String mCreated;
     String mNotes;
+    boolean mToDone;
 
     public void setTitle(String title) {
         mTitle = title;

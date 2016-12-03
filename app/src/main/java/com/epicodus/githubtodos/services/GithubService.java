@@ -32,7 +32,7 @@ public class GithubService {
         urlBuilder.addPathSegment(user);
         urlBuilder.addPathSegment(Constants.GITHUB_REPOS_PATH);
         urlBuilder.addQueryParameter(Constants.GITHUB_TOKEN_QUERY, Constants.GITHUB_TOKEN);
-        urlBuilder.addQueryParameter("sort", "updated");
+        urlBuilder.addQueryParameter("sort", "pushed");
         String url = urlBuilder.toString();
         Request request = new Request.Builder().url(url).build();
         Call call = client.newCall(request);
@@ -64,7 +64,7 @@ public class GithubService {
                     JSONObject repoJSON = jsonRepoArray.getJSONObject(i);
                     String name = repoJSON.getString("name");
                     String language = !repoJSON.getString("language").equals("null")? repoJSON.getString("language"): "No language specified";
-                    String url = repoJSON.getString("url");
+                    String url = repoJSON.getString("html_url");
                     String description = !repoJSON.getString("description").equals("null") ? repoJSON.getString("description"): "No description provided";
 
                     Repo repo = new Repo(name, description, language, url);
@@ -88,7 +88,7 @@ public class GithubService {
                     String title = todoJSON.getString("title");
                     if(title.contains("TODO")){
                         String body = !todoJSON.getString("body").equals("null")? todoJSON.getString("body"): "No body specified";
-                        String url = todoJSON.getString("url");
+                        String url = todoJSON.getString("html_url");
                         String created = todoJSON.getString("created_at");
                         Todo todo = new Todo(title, body, url, created);
                         todoList.add(todo);

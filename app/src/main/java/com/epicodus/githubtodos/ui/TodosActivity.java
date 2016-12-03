@@ -3,6 +3,7 @@ package com.epicodus.githubtodos.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -52,6 +53,13 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
         mProjectNameView.setText(mRepo.getName());
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mProjectNameView.setTypeface(sciFont);
+        mProjectNameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mRepo.getUrl()));
+                startActivity(webIntent);
+            }
+        });
         getTodos(mRepo.getName());
     }
 
