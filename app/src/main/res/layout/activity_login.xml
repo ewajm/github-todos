@@ -28,7 +28,9 @@
             android:layout_marginBottom="10dp"
             android:textColor="@android:color/black"
             android:textColorHint="@color/colorDivider"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
 
         <EditText
             android:id="@+id/passwordEditText"
@@ -41,16 +43,17 @@
             android:padding="10dp"
             android:textColor="@android:color/black"
             android:textColorHint="@color/colorDivider"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
 
 
         <Button
             android:id="@+id/passwordLoginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:text="Log in"
-            android:background="@color/colorAccent"
+            android:padding="15dp"
             android:layout_marginTop="15dp"
             android:textColor="@color/colorIcons" />
 
@@ -75,5 +78,6 @@
         android:textSize="30dp"
         android:textStyle="bold"
         android:layout_above="@+id/linearLayout"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:id="@+id/firebaseLoginTextView"/>
 </RelativeLayout>
