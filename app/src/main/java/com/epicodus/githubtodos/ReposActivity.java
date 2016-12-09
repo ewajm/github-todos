@@ -4,16 +4,23 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class ReposActivity extends AppCompatActivity {
+    private static final String TAG = ReposActivity.class.getSimpleName();
     @Bind(R.id.greetingTextView) TextView mGreetingTextView;
     @Bind(R.id.projectListView) ListView mProjectListView;
 
@@ -31,7 +38,7 @@ public class ReposActivity extends AppCompatActivity {
 
         //this will be replaced by api/database lookup
         final String[] sampleProjects = {"Sample Project 1", "Sample Project 2", "Sample Project 3", "To Do List"};
-
+        getRepos(username);
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.custom_list_item, sampleProjects);
         mProjectListView.setAdapter(adapter);
         mProjectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -41,6 +48,26 @@ public class ReposActivity extends AppCompatActivity {
                 projectIntent.putExtra("project", i);
                 projectIntent.putExtra("projectName", sampleProjects[i]);
                 startActivity(projectIntent);
+            }
+        });
+    }
+
+    private void getRepos(String username){
+        final GithubService githubService = new GithubService();
+        githubService.findRepos(username, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    String jsonData = response.body().string();
+                    Log.v(TAG, jsonData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

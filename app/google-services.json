@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "246959161174",
+    "firebase_url": "https://github-todos-d8e73.firebaseio.com",
+    "project_id": "github-todos-d8e73",
+    "storage_bucket": "github-todos-d8e73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246959161174:android:9ddcb67ac1e881d6",
+        "android_client_info": {
+          "package_name": "com.epicodus.githubtodos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246959161174-vo22ntqe3plb8g32h2rla3apq2cc8aq0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epicodus.githubtodos",
+            "certificate_hash": "79832A1EFD962B87FD966FC2118884E49FC0A998"
+          }
+        },
+        {
+          "client_id": "246959161174-ooeipg3e61bqg8d01rnoi2m8cdmdnrkf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4bkF7C7uyYMBYWcQYKvTVrwwpJeSeHko"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246959161174-ooeipg3e61bqg8d01rnoi2m8cdmdnrkf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
