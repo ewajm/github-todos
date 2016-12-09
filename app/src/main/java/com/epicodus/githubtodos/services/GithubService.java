@@ -40,11 +40,11 @@ public class GithubService {
     }
 
     //limit to only issues created by owner?
-    public static void getRepoIssues(String repoName, Callback callback){
+    public static void getRepoIssues(String repoName, String username, Callback callback){
         OkHttpClient client = new OkHttpClient.Builder().build();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.GITHUB_API_URL).newBuilder();
         urlBuilder.addPathSegment(Constants.GITHUB_REPOS_PATH);
-        urlBuilder.addPathSegment(User.getUsername());
+        urlBuilder.addPathSegment(username);
         urlBuilder.addPathSegment(repoName);
         urlBuilder.addPathSegment(Constants.GITHUB_ISSUES_PATH);
         urlBuilder.addQueryParameter(Constants.GITHUB_TOKEN_QUERY, Constants.GITHUB_TOKEN);

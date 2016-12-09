@@ -2,9 +2,11 @@ package com.epicodus.githubtodos.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
@@ -43,6 +46,9 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
     private ArrayAdapter<String> mAdapter;
     private ArrayList<String> mTodoTitles;
     private Repo mRepo;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+    private String mCurrentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,8 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
 
         Intent intent = getIntent();
         mRepo = Parcels.unwrap(intent.getParcelableExtra("repo"));
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mCurrentUsername = mSharedPreferences.getString(Constants.PREFERENCES_USERNAME_KEY, null);
         mProjectNameView.setText(mRepo.getName());
         mWebsiteUrlView.setText(mRepo.getUrl());
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
@@ -68,7 +76,7 @@ public class TodosActivity extends AppCompatActivity implements View.OnClickList
 
     public void getTodos(String repoName){
         final GithubService githubService = new GithubService();
-        githubService.getRepoIssues(repoName, new Callback() {
+        githubService.getRepoIssues(repoName, mCurrentUsername, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
