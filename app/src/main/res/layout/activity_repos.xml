@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_repos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.epicodus.githubtodos.ReposActivity"
+    tools:context=".ui.ReposActivity"
     android:background="@color/colorPrimaryLight">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/greetingTextView"
         android:layout_centerHorizontal="true"
-        android:id="@+id/projectListView"
+        android:id="@+id/projectRecyclerView"
         android:layout_margin="10dp"/>
 
     <TextView
-        android:text="TextView"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/greetingTextView"

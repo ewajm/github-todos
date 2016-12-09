@@ -1,4 +1,4 @@
-package com.epicodus.githubtodos;
+package com.epicodus.githubtodos.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -9,9 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.epicodus.githubtodos.R;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+//TODO: create static user class
+//TODO: convert token usage to Oauth: Github API allows a Basic Authorization call (username + password) to the authorizations path in order to generate OAuth fields
+//TODO: authentications from this call can then be saved to the static user class and used throughout app
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     @Bind(R.id.loginButton) Button mLoginButton;
@@ -40,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if(view == mLookupButton){
-            String username = mUsernameInput.getText().toString();
+            String username = mUsernameInput.getText().toString().trim();
             if(username.length() > 0){
                 Intent intent = new Intent(MainActivity.this, ReposActivity.class);
                 intent.putExtra("username", username);

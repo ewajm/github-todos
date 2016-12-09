@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Github TODOs</string>
-    <string name="main_subheading">All your project TODOs and issues in one place!</string>
+    <string name="main_subheading">All your project TODOs in one place!</string>
     <string name="login_text">Or Login With Github To See and Edit Your TODOs</string>
     <string name="enter_username_text">Enter a username or login to Github to begin</string>
     <string name="todos_lookup">Look Up Todos!</string>
@@ -13,4 +13,8 @@
     <string name="your_password">your password</string>
     <string name="main_heading_aside">At last, you can easily obsess about them wherever you go</string>
     <string name="bg_content_description">Background image with computer and Github usb stick</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_note_hint">Add a note here</string>
 </resources>

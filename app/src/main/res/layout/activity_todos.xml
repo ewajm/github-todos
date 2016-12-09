@@ -6,7 +6,7 @@
     android:id="@+id/activity_todos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.epicodus.githubtodos.TodosActivity"
+    tools:context=".ui.TodosActivity"
     android:background="@color/colorPrimaryDark">
 
     <TextView
@@ -18,14 +18,15 @@
         android:id="@+id/projectNameView"
         android:textSize="25sp"
         android:textColor="@color/colorAccent"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         android:textAlignment="center"
         />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/projectNameView"
+        android:layout_below="@+id/websiteUrlView"
         android:layout_centerHorizontal="true"
         android:id="@+id/todoListView"
         android:layout_margin="10dp"
@@ -56,6 +57,17 @@
             android:id="@+id/addTodoButton"
             android:text="@string/plus_sign"
             android:textSize="24sp"
-            />
+            android:enabled="false"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/websiteUrlView"
+        android:layout_below="@+id/projectNameView"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimaryLight"
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp"/>
 </RelativeLayout>
