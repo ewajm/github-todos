@@ -4,66 +4,104 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Todo {
-    String mTitle;
-    String mBody;
-    String mUrl;
-    int mUrgency;
-    int mDifficulty;
-    String mCreated;
-    String mNotes;
-    boolean mToDone;
-
-    public void setTitle(String title) {
-        mTitle = title;
-    }
+    String title;
+    String body;
+    String url;
+    int urgency;
+    int difficulty;
+    String created;
+    String notes;
+    boolean toDone;
+    String pushId;
+    String repoId;
 
     public Todo() {
     }
 
     public Todo(String title, String body, String url, String created) {
-        mTitle = title;
-        mBody = body;
-        mUrl = url;
-        mCreated = created;
+        this.title = title;
+        this.body = body;
+        this.url = url;
+        this.created = created;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public boolean isToDone() {
+        return toDone;
+    }
+
+    public void setToDone(boolean toDone) {
+        this.toDone = toDone;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
+
+    public String getRepoId() {
+        return repoId;
+    }
+
+    public void setRepoId(String repoId) {
+        this.repoId = repoId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     public String getBody() {
-        return mBody;
+        return body;
     }
 
     public String getUrl() {
-        return mUrl;
+        return url;
     }
 
     public int getUrgency() {
-        return mUrgency;
+        return urgency;
     }
 
     public int getDifficulty() {
-        return mDifficulty;
+        return difficulty;
     }
 
     public String getCreated() {
-        return mCreated;
+        return created;
     }
 
     public String getNotes() {
-        return mNotes;
+        return notes;
     }
 
     public void setUrgency(int urgency) {
-        mUrgency = urgency;
+        this.urgency = urgency;
     }
 
     public void setDifficulty(int difficulty) {
-        mDifficulty = difficulty;
+        this.difficulty = difficulty;
     }
 
     public void setNotes(String notes) {
-        mNotes = notes;
+        this.notes = notes;
     }
 }

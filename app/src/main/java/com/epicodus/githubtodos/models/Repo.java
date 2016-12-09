@@ -4,34 +4,59 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Repo {
-    String mName;
-    String mDescription;
-    String mLanguage;
-    String mUrl;
+    String name;
+    String description;
+    String language;
+    String url;
+    String uid;
 
     public Repo() {
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
     public Repo(String name, String description, String language, String url) {
-        mName = name;
-        mDescription = description;
-        mLanguage = language;
-        mUrl = url;
+        this.name = name;
+        this.description = description;
+        this.language = language;
+        this.url = url;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public String getDescription() {
-        return mDescription;
+        return description;
     }
 
     public String getLanguage() {
-        return mLanguage;
+        return language;
     }
 
     public String getUrl() {
-        return mUrl;
+        return url;
     }
 }
