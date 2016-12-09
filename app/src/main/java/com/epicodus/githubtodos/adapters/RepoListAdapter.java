@@ -73,6 +73,7 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
         public void onClick(View view) {
             int position = getLayoutPosition();
             Intent intent = new Intent(mContext, TodosActivity.class);
+            intent.putExtra("github", true);
             intent.putExtra("repo", Parcels.wrap(mRepos.get(position)));
             mContext.startActivity(intent);
         }

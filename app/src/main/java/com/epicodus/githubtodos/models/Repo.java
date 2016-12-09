@@ -9,6 +9,14 @@ public class Repo {
     String language;
     String url;
     String uid;
+    String pushId;
+
+    public Repo(String name, String description, String language, String url) {
+        this.name = name;
+        this.description = description;
+        this.language = language;
+        this.url = url;
+    }
 
     public Repo() {
     }
@@ -37,13 +45,13 @@ public class Repo {
         return uid;
     }
 
-    public Repo(String name, String description, String language, String url) {
-        this.name = name;
-        this.description = description;
-        this.language = language;
-        this.url = url;
+    public String getPushId() {
+        return pushId;
     }
 
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
     public String getName() {
         return name;
     }

@@ -30,35 +30,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/todoListView"
         android:layout_margin="10dp"
-        android:layout_above="@+id/addTodoLinearLayout"
         />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/addTodoLinearLayout"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="5dp"
-        >
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="9dp"
-            android:layout_weight="1"
-            android:id="@+id/addTodoInput"
-            android:hint="@string/new_todo_hint"
-            android:textColorHint="@color/colorSecondaryText"
-            android:background="@color/colorPrimaryLight"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:id="@+id/addTodoButton"
-            android:text="@string/plus_sign"
-            android:textSize="24sp"
-            android:enabled="false"/>
-    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,4 +42,31 @@
         android:textColor="@color/colorPrimaryLight"
         android:layout_marginBottom="10dp"
         android:textSize="18sp"/>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:id="@+id/addTodoLinearLayout"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--&gt;-->
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="9dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/addTodoInput"-->
+            <!--android:hint="@string/new_todo_hint"-->
+            <!--android:textColorHint="@color/colorSecondaryText"-->
+            <!--android:background="@color/colorPrimaryLight"/>-->
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="6"-->
+            <!--android:id="@+id/addTodoButton"-->
+            <!--android:text="@string/plus_sign"-->
+            <!--android:textSize="24sp"-->
+            <!--android:enabled="false"/>-->
+    <!--</LinearLayout>-->
 </RelativeLayout>
