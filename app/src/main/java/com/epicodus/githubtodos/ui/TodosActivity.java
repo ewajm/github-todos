@@ -30,6 +30,7 @@ import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
 import com.epicodus.githubtodos.services.GithubService;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -65,6 +66,9 @@ public class TodosActivity extends BaseActivity {
     private String mCurrentUsername;
     private boolean mGithub;
     private String mUserId;
+    private Query mRepoQuery;
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,19 +97,30 @@ public class TodosActivity extends BaseActivity {
                 startActivity(webIntent);
             }
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         if(mGithub){
             checkFirebaseForRepo();
             getTodos(mRepo.getName());
+        } else {
+            setUpFirebaseAdapter();
         }
     }
 
+    private void setUpFirebaseAdapter() {
+    }
+
     private void checkFirebaseForRepo() {
-        Query repoQuery = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId).orderByChild("url").equalTo(mRepo.getUrl());
-        repoQuery.addValueEventListener(new ValueEventListener() {
+        mRepoQuery = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId).orderByChild("url").equalTo(mRepo.getUrl());
+        mRepoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue()!=null){
-                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                if (dataSnapshot.getValue() != null) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         mRepo.setPushId(snapshot.getKey());
                     }
                 }
@@ -158,28 +173,13 @@ public class TodosActivity extends BaseActivity {
         });
     }
 
-
-
-//    @Override
-//    public void onClick(View view) {
-//        if(mAddTodoInput.getText().toString().length() > 0){
-//            Todo newTodo = new Todo();
-//            newTodo.setTitle("TODO: " + mAddTodoInput.getText().toString());
-//            mTodoArray.add(newTodo);
-//            if(mTodoTitles.get(0).equals("No TODOs yet! Why not add one?")){
-//                mTodoTitles.remove(0);
-//            }
-//            mTodoTitles.add(newTodo.getTitle());
-//            mAdapter.notifyDataSetChanged();
-//
-//            //for hiding the keyboard after button is pressed
-//            InputMethodManager imm = (InputMethodManager)getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
-//            imm.hideSoftInputFromWindow(mAddTodoInput.getWindowToken(), 0);
-//            mAddTodoInput.setText("");
-//        } else {
-//            Toast.makeText(TodosActivity.this, "Please enter a todo first!", Toast.LENGTH_LONG).show();
-//        }
-//    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mFirebaseAdapter != null){
+            mFirebaseAdapter.cleanup();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

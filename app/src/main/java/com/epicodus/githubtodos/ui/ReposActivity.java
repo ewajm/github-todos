@@ -19,8 +19,16 @@ import android.widget.Toast;
 import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.adapters.RepoListAdapter;
+import com.epicodus.githubtodos.adapters.RepoViewHolder;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.services.GithubService;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,6 +53,9 @@ public class ReposActivity extends BaseActivity {
     public ArrayList<Repo> mRepos;
     private RepoListAdapter mAdapter;
     private boolean mGithub;
+    private DatabaseReference mRepoReference;
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private ValueEventListener mRepoValueEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +67,11 @@ public class ReposActivity extends BaseActivity {
         mGithub = intent.getBooleanExtra("github", false);
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         if(mGithub){
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             mRecentUsernameSearch = mSharedPreferences.getString(Constants.PREFERENCES_USERNAME_KEY, null);
@@ -65,7 +81,47 @@ public class ReposActivity extends BaseActivity {
                 mEmptyView.setVisibility(View.VISIBLE);
                 mProjectRecyclerView.setVisibility(View.GONE);
             }
+        } else {
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            mRepoReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(userId);
+            setUpFirebaseAdapter();
         }
+    }
+
+    private void setUpFirebaseAdapter() {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<Repo, RepoViewHolder>(Repo.class, R.layout.repo_list_item, RepoViewHolder.class, mRepoReference) {
+            @Override
+            protected void populateViewHolder(RepoViewHolder viewHolder, Repo model, int position) {
+                viewHolder.bindRepo(model);
+            }
+        };
+        //does this not need clean up?
+        mRepoReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.hasChildren()){
+                    if(mProjectRecyclerView.getVisibility() == View.VISIBLE){
+                        mProjectRecyclerView.setVisibility(View.GONE);
+                        mEmptyView.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    if(mProjectRecyclerView.getVisibility() == View.GONE){
+                        mProjectRecyclerView.setVisibility(View.VISIBLE);
+                        mEmptyView.setVisibility(View.GONE);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mProjectRecyclerView.setHasFixedSize(true);
+        mProjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mProjectRecyclerView.setAdapter(mFirebaseAdapter);
+        mGreetingTextView.setText(getString(R.string.firebase_repos_heading));
     }
 
     public void getRepos(String username){
@@ -146,5 +202,11 @@ public class ReposActivity extends BaseActivity {
     private void addToSharedPreferences(String username) {
         mEditor.putString(Constants.PREFERENCES_USERNAME_KEY, username).apply();
         mRecentUsernameSearch = username;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mFirebaseAdapter.cleanup();
     }
 }

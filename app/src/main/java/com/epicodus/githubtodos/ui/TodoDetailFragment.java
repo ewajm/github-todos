@@ -82,7 +82,7 @@ public class TodoDetailFragment extends Fragment {
 
     private void checkFirebaseForTodo() {
         Query repoQuery = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId).orderByChild("url").equalTo(mTodo.getUrl());
-        repoQuery.addValueEventListener(new ValueEventListener() {
+        repoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue()!=null){

@@ -7,13 +7,14 @@
     <string name="todos_firebase">Browse saved Repos/TODOs</string>
     <string name="username">username</string>
     <string name="your_username">your username</string>
-    <string name="github_repos_heading">"%s's Github Repos"</string>
+    <string name="github_repos_heading">%s\'s Github Repos</string>
+    <string name="firebase_repos_heading">Your Saved Repos</string>
     <string name="plus_sign">+</string>
     <string name="new_todo_hint">New Todo Goes Here</string>
     <string name="your_password">your password</string>
     <string name="main_heading_aside">At last, you can easily obsess about them wherever you go</string>
     <string name="bg_content_description">Background image with computer and Github usb stick</string>
     <string name="add_note_hint">Add a note here</string>
-    <string name="no_data_available">No Repos to display. Use the search above to enter a Github username.</string>
+    <string name="no_data_available">No Repos to display.</string>
     <string name="save">Save</string>
 </resources>
