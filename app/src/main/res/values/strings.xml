@@ -3,11 +3,11 @@
     <string name="main_subheading">All your project TODOs in one place!</string>
     <string name="login_text">Or Login With Github To See and Edit Your TODOs</string>
     <string name="get_started_text">What do you want TODO?</string>
-    <string name="todos_github">Find Repos/TODOs on GitHub!</string>
-    <string name="todos_firebase">Browse saved Repos/TODOs!</string>
+    <string name="todos_github">Find Repos/TODOs on GitHub</string>
+    <string name="todos_firebase">Browse saved Repos/TODOs</string>
     <string name="username">username</string>
     <string name="your_username">your username</string>
-    <string name="user_greeting">"Hello %s, here are your projects:"</string>
+    <string name="github_repos_heading">"%s's Github Repos"</string>
     <string name="plus_sign">+</string>
     <string name="new_todo_hint">New Todo Goes Here</string>
     <string name="your_password">your password</string>
@@ -17,4 +17,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_note_hint">Add a note here</string>
+    <string name="no_data_available">No Repos to display. Use the search above to enter a Github username.</string>
 </resources>

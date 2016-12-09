@@ -7,4 +7,5 @@ public class Constants {
     public static final String GITHUB_REPOS_PATH = "repos";
     public static final String GITHUB_ISSUES_PATH = "issues";
     public static final String GITHUB_TOKEN_QUERY = "access_token";
+    public static final String PREFERENCES_USERNAME_KEY = "username";
 }
