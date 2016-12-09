@@ -22,16 +22,20 @@
         </activity>
         <activity android:name=".ui.TodoDetailActivity">
         </activity>
-        <activity android:name=".ui.CreateAccountActivity"
-                  android:theme="@style/_AppThemeNoActionBar">
+        <activity
+            android:name=".ui.CreateAccountActivity"
+            android:theme="@style/_AppThemeNoActionBar">
         </activity>
-        <activity android:name=".ui.LoginActivity"
+        <activity
+            android:name=".ui.LoginActivity"
             android:theme="@style/_AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.BaseActivity">
         </activity>
     </application>
 

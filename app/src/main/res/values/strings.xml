@@ -2,9 +2,9 @@
     <string name="app_name">Github TODOs</string>
     <string name="main_subheading">All your project TODOs in one place!</string>
     <string name="login_text">Or Login With Github To See and Edit Your TODOs</string>
-    <string name="enter_username_text">Enter a username or login to Github to begin</string>
-    <string name="todos_lookup">Look Up Todos!</string>
-    <string name="todos_login">Login and Look Up Todos!</string>
+    <string name="get_started_text">What do you want TODO?</string>
+    <string name="todos_github">Find Repos/TODOs on GitHub!</string>
+    <string name="todos_firebase">Browse saved Repos/TODOs!</string>
     <string name="username">username</string>
     <string name="your_username">your username</string>
     <string name="user_greeting">"Hello %s, here are your projects:"</string>

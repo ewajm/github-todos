@@ -41,7 +41,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_username_text"
+        android:text="@string/get_started_text"
         android:id="@+id/beginTextView"
         android:textSize="22sp"
         android:textColor="@color/colorPrimaryLight"
@@ -50,70 +50,47 @@
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:layout_marginTop="50dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:layout_below="@+id/beginTextView"
-        android:layout_marginTop="24dp">
+        android:layout_alignLeft="@+id/subHeadingView"
+        android:layout_alignStart="@+id/subHeadingView">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/usernameInput"
-                android:inputType="text"
-                android:hint="@string/username"
-                android:textColorHint="@color/colorDivider"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryLight"
-
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/todos_lookup"
-                android:id="@+id/lookupButton"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/usernameLoginInput"
-                android:inputType="text"
-                android:hint="@string/your_username"
-                android:textColorHint="@color/colorDivider"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryLight"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/passwordInput"
-                android:inputType="textPassword"
-                android:hint="@string/your_password"
-                android:textColorHint="@color/colorDivider"
-                android:textAlignment="center"
-                android:layout_margin="10dp"
-                android:textColor="@color/colorPrimaryLight"
-                android:layout_weight="1"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/todos_login"
-                android:id="@+id/loginButton"
+                android:text="@string/todos_github"
+                android:id="@+id/githubLookupButton"
                 android:layout_weight="1"
-                android:layout_margin="10dp"/>
+                android:padding="30dp"
+                android:textSize="32sp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/todos_firebase"
+                android:id="@+id/firebaseLookupButton"
+                android:layout_weight="1"
+                android:padding="30dp"
+                android:textSize="32sp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
