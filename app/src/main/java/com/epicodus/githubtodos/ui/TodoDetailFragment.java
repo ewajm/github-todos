@@ -1,7 +1,9 @@
 package com.epicodus.githubtodos.ui;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,13 +46,13 @@ public class TodoDetailFragment extends Fragment {
     private Repo mRepo;
     private boolean mGithub;
     private String mUserId;
+    private SharedPreferences mSharedPreferences;
 
-    public static TodoDetailFragment newInstance(Todo todo, Repo repo, boolean github) {
+    public static TodoDetailFragment newInstance(Todo todo, Repo repo) {
         TodoDetailFragment todoDetailFragment = new TodoDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable("todo", Parcels.wrap(todo));
         args.putParcelable("repo", Parcels.wrap(repo));
-        args.putBoolean("github", github);
         todoDetailFragment.setArguments(args);
         return todoDetailFragment;
     }
@@ -61,7 +63,8 @@ public class TodoDetailFragment extends Fragment {
         setHasOptionsMenu(true);
         mTodo = Parcels.unwrap(getArguments().getParcelable("todo"));
         mRepo = Parcels.unwrap(getArguments().getParcelable("repo"));
-        mGithub = getArguments().getBoolean("github");
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        mGithub = mSharedPreferences.getBoolean(Constants.PREFERENCES_GITHUB_TOGGLE_KEY, false);
         mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 

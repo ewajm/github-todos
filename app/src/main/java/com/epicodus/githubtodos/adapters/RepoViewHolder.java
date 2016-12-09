@@ -46,7 +46,6 @@ public class RepoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(mContext, TodosActivity.class);
-        intent.putExtra("github", true);
         intent.putExtra("repo", Parcels.wrap(mRepo));
         mContext.startActivity(intent);
     }

@@ -1,26 +1,17 @@
 package com.epicodus.githubtodos.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +21,8 @@ import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
 import com.epicodus.githubtodos.services.GithubService;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,12 +42,9 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class TodosActivity extends BaseActivity {
-    private static final String TAG = TodosActivity.class.getSimpleName();
     @Bind(R.id.projectNameView) TextView mProjectNameView;
     @Bind(R.id.todoListView) ListView mTodoListView;
     @Bind(R.id.websiteUrlView) TextView mWebsiteUrlView;
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private ArrayList<Todo> mTodoArray;
     private ArrayAdapter<String> mAdapter;
     private ArrayList<String> mTodoTitles;
@@ -67,8 +54,7 @@ public class TodosActivity extends BaseActivity {
     private boolean mGithub;
     private String mUserId;
     private Query mRepoQuery;
-    private FirebaseRecyclerAdapter mFirebaseAdapter;
-
+    private FirebaseListAdapter mFirebaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +65,8 @@ public class TodosActivity extends BaseActivity {
         //member variable set up
         Intent intent = getIntent();
         mRepo = Parcels.unwrap(intent.getParcelableExtra("repo"));
-        mGithub = intent.getBooleanExtra("github", false);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mGithub = mSharedPreferences.getBoolean(Constants.PREFERENCES_GITHUB_TOGGLE_KEY, false);
         mCurrentUsername = mSharedPreferences.getString(Constants.PREFERENCES_USERNAME_KEY, null);
         mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -112,6 +98,15 @@ public class TodosActivity extends BaseActivity {
     }
 
     private void setUpFirebaseAdapter() {
+        Query todoRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId).orderByChild("repoId").equalTo(mRepo.getPushId());
+        mFirebaseAdapter = new FirebaseListAdapter<Todo>(this, Todo.class, R.layout.custom_todo_list_item, todoRef) {
+            @Override
+            protected void populateView(View v, Todo model, int position) {
+                ((TextView)v.findViewById(android.R.id.text1)).setText(model.getTitle());
+            }
+        };
+        mTodoListView.setEmptyView(findViewById(android.R.id.empty));
+        mTodoListView.setAdapter(mFirebaseAdapter);
     }
 
     private void checkFirebaseForRepo() {
@@ -162,7 +157,6 @@ public class TodosActivity extends BaseActivity {
                                 Intent intent = new Intent(TodosActivity.this, TodoDetailActivity.class);
                                 intent.putExtra("todos", Parcels.wrap(mTodoArray));
                                 intent.putExtra("repo", Parcels.wrap(mRepo));
-                                intent.putExtra("github", mGithub);
                                 intent.putExtra("position", i);
                                 startActivity(intent);
                             }

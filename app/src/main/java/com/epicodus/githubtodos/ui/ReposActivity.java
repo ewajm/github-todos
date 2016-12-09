@@ -64,7 +64,8 @@ public class ReposActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        mGithub = intent.getBooleanExtra("github", false);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mGithub = mSharedPreferences.getBoolean(Constants.PREFERENCES_GITHUB_TOGGLE_KEY, false);
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
     }
@@ -207,6 +208,8 @@ public class ReposActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        mFirebaseAdapter.cleanup();
+        if(mFirebaseAdapter != null){
+            mFirebaseAdapter.cleanup();
+        }
     }
 }
