@@ -6,10 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Todo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
@@ -21,6 +25,7 @@ public class TodoDetailFragment extends Fragment {
     @Bind(R.id.createdTextView) TextView mCreatedTextView;
     @Bind(R.id.bodyTextView) TextView mBodyTextView;
     @Bind(R.id.websiteTextView) TextView mWebsiteTextView;
+    @Bind(R.id.addToFirebaseButton) Button mAddToFirebaseButton;
 
     private Todo mTodo;
 
@@ -48,6 +53,13 @@ public class TodoDetailFragment extends Fragment {
         mBodyTextView.setText(mTodo.getBody());
         mCreatedTextView.setText(mTodo.getCreated());
         mWebsiteTextView.setText(mTodo.getUrl());
+
+        mAddToFirebaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //DatabaseReference todoRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE);
+            }
+        });
         return view;
     }
 
