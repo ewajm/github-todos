@@ -15,6 +15,5 @@
     <string name="bg_content_description">Background image with computer and Github usb stick</string>
     <string name="add_note_hint">Add a note here</string>
     <string name="no_data_available">No Repos to display. Use the search above to enter a Github username.</string>
-    <string name="save_todo">Save TODO</string>
     <string name="save">Save</string>
 </resources>

@@ -8,7 +8,6 @@ public class Repo {
     String description;
     String language;
     String url;
-    String uid;
     String pushId;
 
     public Repo(String name, String description, String language, String url) {
@@ -35,14 +34,6 @@ public class Repo {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getUid() {
-        return uid;
     }
 
     public String getPushId() {

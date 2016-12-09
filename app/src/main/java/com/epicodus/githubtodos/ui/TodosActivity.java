@@ -55,12 +55,13 @@ public class TodosActivity extends BaseActivity {
     @Bind(R.id.projectNameView) TextView mProjectNameView;
     @Bind(R.id.todoListView) ListView mTodoListView;
     @Bind(R.id.websiteUrlView) TextView mWebsiteUrlView;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private ArrayList<Todo> mTodoArray;
     private ArrayAdapter<String> mAdapter;
     private ArrayList<String> mTodoTitles;
     private Repo mRepo;
     private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
     private String mCurrentUsername;
     private boolean mGithub;
     private String mUserId;
@@ -71,16 +72,20 @@ public class TodosActivity extends BaseActivity {
         setContentView(R.layout.activity_todos);
         ButterKnife.bind(this);
 
+        //member variable set up
         Intent intent = getIntent();
         mRepo = Parcels.unwrap(intent.getParcelableExtra("repo"));
         mGithub = intent.getBooleanExtra("github", false);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mCurrentUsername = mSharedPreferences.getString(Constants.PREFERENCES_USERNAME_KEY, null);
+        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        //cosmetic things
         mProjectNameView.setText(mRepo.getName());
         mWebsiteUrlView.setText(mRepo.getUrl());
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mProjectNameView.setTypeface(sciFont);
-        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         mWebsiteUrlView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,6 +146,8 @@ public class TodosActivity extends BaseActivity {
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 Intent intent = new Intent(TodosActivity.this, TodoDetailActivity.class);
                                 intent.putExtra("todos", Parcels.wrap(mTodoArray));
+                                intent.putExtra("repo", Parcels.wrap(mRepo));
+                                intent.putExtra("github", mGithub);
                                 intent.putExtra("position", i);
                                 startActivity(intent);
                             }
@@ -192,13 +199,11 @@ public class TodosActivity extends BaseActivity {
                 DatabaseReference pushRef = repoRef.push();
                 String pushId = pushRef.getKey();
                 mRepo.setPushId(pushId);
-                mRepo.setUid(mUserId);
                 pushRef.setValue(mRepo);
                 Toast.makeText(this, "Repo saved", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "You have already saved this Repo", Toast.LENGTH_SHORT).show();
             }
-
         }
         return super.onOptionsItemSelected(item);
     }
