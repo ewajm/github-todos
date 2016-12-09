@@ -42,7 +42,7 @@ public class BaseActivity extends AppCompatActivity {
         SharedPreferences.Editor editor;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
-        editor.remove("username");
+        editor.remove("username").apply();
         Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
