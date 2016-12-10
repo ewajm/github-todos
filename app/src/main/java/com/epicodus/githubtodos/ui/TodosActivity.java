@@ -210,6 +210,8 @@ public class TodosActivity extends BaseActivity {
         if(mGithub){
             inflater.inflate(R.menu.menu_save, menu);
             ButterKnife.bind(this);
+        } else {
+            inflater.inflate(R.menu.menu_add, menu);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -227,6 +229,10 @@ public class TodosActivity extends BaseActivity {
             } else {
                 Toast.makeText(this, "You have already saved this Repo", Toast.LENGTH_SHORT).show();
             }
+        } else if(item.getItemId() == R.id.action_add){
+            Intent intent = new Intent(this, AddTodoActivity.class);
+            intent.putExtra("repo", Parcels.wrap(mRepo));
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

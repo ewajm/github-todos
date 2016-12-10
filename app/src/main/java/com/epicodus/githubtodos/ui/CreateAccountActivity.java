@@ -28,8 +28,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     public static final String TAG = CreateAccountActivity.class.getSimpleName();
     @Bind(R.id.createUserButton) Button mCreateUserButton;
     @Bind(R.id.nameEditText) EditText mNameEditText;
-    @Bind(R.id.emailEditText) EditText mEmailEditText;
-    @Bind(R.id.passwordEditText) EditText mPasswordEditText;
+    @Bind(R.id.titleEditText) EditText mEmailEditText;
+    @Bind(R.id.bodyEditText) EditText mPasswordEditText;
     @Bind(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
     @Bind(R.id.loginTextView) TextView mLoginTextView;
     @Bind(R.id.createAccountTextView) TextView mCreateAccountTextView;

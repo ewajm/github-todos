@@ -2,6 +2,8 @@ package com.epicodus.githubtodos.models;
 
 import org.parceler.Parcel;
 
+import java.sql.Date;
+
 @Parcel
 public class Todo {
     String title;
@@ -14,6 +16,16 @@ public class Todo {
     boolean toDone;
     String pushId;
     String repoId;
+
+    public Todo(String title, String body, int urgency, int difficulty) {
+        this.title = title;
+        this.body = body;
+        this.urgency = urgency;
+        this.difficulty = difficulty;
+        Date date = new Date(System.currentTimeMillis());
+        this.created = date.toString();
+        this.toDone = false;
+    }
 
     public Todo() {
     }

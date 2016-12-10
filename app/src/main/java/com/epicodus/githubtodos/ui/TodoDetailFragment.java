@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
+import org.w3c.dom.Text;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,12 +43,19 @@ public class TodoDetailFragment extends Fragment {
     @Bind(R.id.createdTextView) TextView mCreatedTextView;
     @Bind(R.id.bodyTextView) TextView mBodyTextView;
     @Bind(R.id.websiteTextView) TextView mWebsiteTextView;
+    @Bind(R.id.difficultyTextView) TextView mDifficultyTextView;
+    @Bind(R.id.urgencyTextView) TextView mUrgencyTextView;
+    @Bind(R.id.addNoteButton) TextView mAddNoteButton;
+    @Bind(R.id.addNoteEditText) TextView mAddNoteEditText;
+    @Bind(R.id.addNoteLinearLayout) LinearLayout mAddNoteLinearLayout;
+    @Bind(R.id.notesTextView) TextView mNotesTextView;
 
     private Todo mTodo;
     private Repo mRepo;
     private boolean mGithub;
     private String mUserId;
     private SharedPreferences mSharedPreferences;
+    private DatabaseReference mTodoRef;
 
     public static TodoDetailFragment newInstance(Todo todo, Repo repo) {
         TodoDetailFragment todoDetailFragment = new TodoDetailFragment();
@@ -78,8 +87,35 @@ public class TodoDetailFragment extends Fragment {
         mBodyTextView.setText(mTodo.getBody());
         mCreatedTextView.setText(mTodo.getCreated());
         mWebsiteTextView.setText(mTodo.getUrl());
-        checkFirebaseForTodo();
+        if(mTodo.getUrgency() > 0){
+            mUrgencyTextView.setText("Urgency: " + mTodo.getUrgency());
+        }
+        if(mTodo.getDifficulty() > 0){
+            mDifficultyTextView.setText("Difficulty: " + mTodo.getDifficulty());
+        }
 
+        mTodoRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId);
+        if(mGithub){
+            checkFirebaseForTodo();
+        } else {
+
+            mAddNoteLinearLayout.setVisibility(View.VISIBLE);
+            mAddNoteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String note = mAddNoteEditText.getText().toString().trim();
+                    if(note.length()>0){
+                        if(mTodo.getNotes() != null){
+                            mTodo.setNotes(mTodo.getNotes() + " " + note);
+                        } else {
+                            mTodo.setNotes(note);
+                        }
+                        mNotesTextView.setText(mTodo.getNotes());
+                        mTodoRef.child(mTodo.getPushId()).child("notes").setValue(mTodo.getNotes());
+                    }
+                }
+            });
+        }
         return view;
     }
 
@@ -116,9 +152,8 @@ public class TodoDetailFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_save){
             if(mTodo.getPushId() == null){
-                DatabaseReference todoRef =  FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId);
                 DatabaseReference repoRef =  FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId);
-                DatabaseReference pushRef = todoRef.push();
+                DatabaseReference pushRef = mTodoRef.push();
                 if(mRepo.getPushId() == null){
                     DatabaseReference repoPushRef = repoRef.push();
                     String repoPushId = repoPushRef.getKey();

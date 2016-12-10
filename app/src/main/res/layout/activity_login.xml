@@ -17,13 +17,13 @@
         android:id="@+id/linearLayout">
 
         <EditText
-            android:id="@+id/emailEditText"
+            android:id="@+id/titleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:nextFocusDown="@+id/passwordEditText"
+            android:nextFocusDown="@+id/bodyEditText"
             android:padding="10dp"
             android:layout_marginBottom="10dp"
             android:textColor="@android:color/black"
@@ -33,13 +33,13 @@
             android:layout_marginLeft="5dp"/>
 
         <EditText
-            android:id="@+id/passwordEditText"
+            android:id="@+id/bodyEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:hint="Password"
             android:inputType="textPassword"
-            android:nextFocusDown="@+id/passwordEditText"
+            android:nextFocusDown="@+id/bodyEditText"
             android:padding="10dp"
             android:textColor="@android:color/black"
             android:textColorHint="@color/colorDivider"
@@ -49,7 +49,7 @@
 
 
         <Button
-            android:id="@+id/passwordLoginButton"
+            android:id="@+id/addTodoButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Log in"

@@ -26,4 +26,6 @@
     <string name="step_2">2. From there, you can view and save repos and TODOs taken from your repo issues</string>
     <string name="step_1">1. Start by searching Github for your username</string>
     <string name="using_this_app">Using this app:</string>
+    <string name="add">Add</string>
+    <string name="add_note">Add Note</string>
 </resources>

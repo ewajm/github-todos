@@ -43,6 +43,8 @@
                 android:value=".ui.MainActivity">
             </meta-data>
         </activity>
+        <activity android:name=".ui.AddTodoActivity">
+        </activity>
     </application>
 
 </manifest>

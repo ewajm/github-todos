@@ -27,9 +27,9 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TAG = LoginActivity.class.getSimpleName();
 
-    @Bind(R.id.passwordLoginButton) Button mPasswordLoginButton;
-    @Bind(R.id.emailEditText) EditText mEmailEditText;
-    @Bind(R.id.passwordEditText) EditText mPasswordEditText;
+    @Bind(R.id.addTodoButton) Button mPasswordLoginButton;
+    @Bind(R.id.titleEditText) EditText mEmailEditText;
+    @Bind(R.id.bodyEditText) EditText mPasswordEditText;
     @Bind(R.id.registerTextView) TextView mRegisterTextView;
     @Bind(R.id.firebaseLoginTextView) TextView mFirebaseLoginTextView;
 
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.passwordLoginButton:
+            case R.id.addTodoButton:
                 loginWithPassword();
                 break;
         }

@@ -22,15 +22,9 @@ import com.google.firebase.auth.FirebaseUser;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-//TODO: create static user class
 //TODO: convert token usage to Oauth: Github API allows a Basic Authorization call (username + password) to the authorizations path in order to generate OAuth fields
 //TODO: authentications from this call can then be saved to the static user class and used throughout app
-//TODO: turn this into a more of a dashboard type deal.
-//TODO: user search = searchview
 //TODO: github login as overflow menu bit -> dialog?!?!?!
-//TODO: BaseActivity
-//TODO: user -> shared prefs/github username
-
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Bind(R.id.firebaseLookupButton) Button mFirebaseButton;
