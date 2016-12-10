@@ -1,6 +1,7 @@
 package com.epicodus.githubtodos.ui;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -87,6 +89,9 @@ public class TodoDetailFragment extends Fragment {
         mBodyTextView.setText(mTodo.getBody());
         mCreatedTextView.setText(mTodo.getCreated());
         mWebsiteTextView.setText(mTodo.getUrl());
+        if(mTodo.getNotes()!= null){
+            mNotesTextView.setText(mTodo.getNotes());
+        }
         if(mTodo.getUrgency() > 0){
             mUrgencyTextView.setText("Urgency: " + mTodo.getUrgency());
         }
@@ -106,12 +111,17 @@ public class TodoDetailFragment extends Fragment {
                     String note = mAddNoteEditText.getText().toString().trim();
                     if(note.length()>0){
                         if(mTodo.getNotes() != null){
-                            mTodo.setNotes(mTodo.getNotes() + " " + note);
+                            mTodo.setNotes(mTodo.getNotes() + "\n" + note);
                         } else {
                             mTodo.setNotes(note);
                         }
                         mNotesTextView.setText(mTodo.getNotes());
                         mTodoRef.child(mTodo.getPushId()).child("notes").setValue(mTodo.getNotes());
+                        //for hiding the keyboard after button is pressed
+                        InputMethodManager imm = (InputMethodManager)getActivity().getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(mAddNoteEditText.getWindowToken(), 0);
+                        mAddNoteEditText.setText("");
+
                     }
                 }
             });
