@@ -28,7 +28,7 @@ in order to be able to compile
 
 * Java
 * Android Studio
-* Butterknife
+* Firebase
 
 ## Licensing
 
