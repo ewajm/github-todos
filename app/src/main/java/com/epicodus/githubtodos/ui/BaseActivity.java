@@ -32,6 +32,9 @@ public class BaseActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
             logout();
             return true;
+        } else if (id == R.id.action_about) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

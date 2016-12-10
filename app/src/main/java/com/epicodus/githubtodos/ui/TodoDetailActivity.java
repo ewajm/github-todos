@@ -30,10 +30,9 @@ public class TodoDetailActivity extends BaseActivity {
 
         mTodos = Parcels.unwrap(getIntent().getParcelableExtra("todos"));
         mRepo = Parcels.unwrap(getIntent().getParcelableExtra("repo"));
-        boolean github = getIntent().getBooleanExtra("github", false);
         int startingPosition = getIntent().getIntExtra("position", 0);
 
-        mTodoPagerAdapter = new TodoPagerAdapter(getSupportFragmentManager(), mTodos, mRepo, github);
+        mTodoPagerAdapter = new TodoPagerAdapter(getSupportFragmentManager(), mTodos, mRepo);
         mViewPager.setAdapter(mTodoPagerAdapter);
         mViewPager.setCurrentItem(startingPosition);
     }

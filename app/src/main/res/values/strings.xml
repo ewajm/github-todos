@@ -17,4 +17,13 @@
     <string name="add_note_hint">Add a note here</string>
     <string name="no_data_available">No Repos to display.</string>
     <string name="save">Save</string>
+    <string name="no_todos_yet_why_not_add_one">No TODOs yet! Why not add one?</string>
+    <string name="about_app_blurb">This app will let you manage your project project TODO lists wherever you go! Grab your TODOs from GitHub, save the ones you want to remember and (eventually) add notes/prioritize/organize them to your heart\'s content.</string>
+    <string name="step_4_aside">(Publishing TODOS as Github issues to be implemented someday!)</string>
+    <string name="step_4">4. View and edit your TODOs as much as you want</string>
+    <string name="step_3">3. Once you have saved some repos and todos, you will be able to access them from the main page</string>
+    <string name="step_2_aside">(Code scraping for todos to be implemented someday!)</string>
+    <string name="step_2">2. From there, you can view and save repos and TODOs taken from your repo issues</string>
+    <string name="step_1">1. Start by searching Github for your username</string>
+    <string name="using_this_app">Using this app:</string>
 </resources>

@@ -47,32 +47,5 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center"
-              android:text="No TODOs yet! Why not add one?" />
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:id="@+id/addTodoLinearLayout"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:layout_marginLeft="5dp"-->
-        <!--&gt;-->
-        <!--<EditText-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="9dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:id="@+id/addTodoInput"-->
-            <!--android:hint="@string/new_todo_hint"-->
-            <!--android:textColorHint="@color/colorSecondaryText"-->
-            <!--android:background="@color/colorPrimaryLight"/>-->
-        <!--<Button-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="6"-->
-            <!--android:id="@+id/addTodoButton"-->
-            <!--android:text="@string/plus_sign"-->
-            <!--android:textSize="24sp"-->
-            <!--android:enabled="false"/>-->
-    <!--</LinearLayout>-->
+              android:text="@string/no_todos_yet_why_not_add_one" />
 </RelativeLayout>

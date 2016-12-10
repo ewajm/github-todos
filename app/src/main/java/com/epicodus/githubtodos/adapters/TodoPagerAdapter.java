@@ -17,7 +17,7 @@ public class TodoPagerAdapter extends FragmentPagerAdapter{
     private ArrayList<Todo> mTodos;
     Repo mRepo;
 
-    public TodoPagerAdapter(FragmentManager fm, ArrayList<Todo> todos, Repo repo, boolean github) {
+    public TodoPagerAdapter(FragmentManager fm, ArrayList<Todo> todos, Repo repo) {
         super(fm);
         mTodos = todos;
         mRepo= repo;

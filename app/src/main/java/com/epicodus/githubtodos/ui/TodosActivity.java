@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -45,7 +46,7 @@ public class TodosActivity extends BaseActivity {
     @Bind(R.id.projectNameView) TextView mProjectNameView;
     @Bind(R.id.todoListView) ListView mTodoListView;
     @Bind(R.id.websiteUrlView) TextView mWebsiteUrlView;
-    private ArrayList<Todo> mTodoArray;
+    private ArrayList<Todo> mTodoArray = new ArrayList<>();
     private ArrayAdapter<String> mAdapter;
     private ArrayList<String> mTodoTitles;
     private Repo mRepo;
@@ -55,6 +56,7 @@ public class TodosActivity extends BaseActivity {
     private String mUserId;
     private Query mRepoQuery;
     private FirebaseListAdapter mFirebaseAdapter;
+    private Query mTodoRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +100,8 @@ public class TodosActivity extends BaseActivity {
     }
 
     private void setUpFirebaseAdapter() {
-        Query todoRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId).orderByChild("repoId").equalTo(mRepo.getPushId());
-        mFirebaseAdapter = new FirebaseListAdapter<Todo>(this, Todo.class, R.layout.custom_todo_list_item, todoRef) {
+        mTodoRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId).orderByChild("repoId").equalTo(mRepo.getPushId());
+        mFirebaseAdapter = new FirebaseListAdapter<Todo>(this, Todo.class, R.layout.custom_todo_list_item, mTodoRef) {
             @Override
             protected void populateView(View v, Todo model, int position) {
                 ((TextView)v.findViewById(android.R.id.text1)).setText(model.getTitle());
@@ -107,6 +109,7 @@ public class TodosActivity extends BaseActivity {
         };
         mTodoListView.setEmptyView(findViewById(android.R.id.empty));
         mTodoListView.setAdapter(mFirebaseAdapter);
+        mTodoListView.setOnItemClickListener(todoListItemClickListener());
     }
 
     private void checkFirebaseForRepo() {
@@ -151,20 +154,46 @@ public class TodosActivity extends BaseActivity {
                         }
                         mAdapter = new ArrayAdapter<>(TodosActivity.this, R.layout.custom_todo_list_item, mTodoTitles);
                         mTodoListView.setAdapter(mAdapter);
-                        mTodoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Intent intent = new Intent(TodosActivity.this, TodoDetailActivity.class);
-                                intent.putExtra("todos", Parcels.wrap(mTodoArray));
-                                intent.putExtra("repo", Parcels.wrap(mRepo));
-                                intent.putExtra("position", i);
-                                startActivity(intent);
-                            }
-                        });
+                        mTodoListView.setOnItemClickListener(todoListItemClickListener());
                     }
                 });
             }
         });
+    }
+
+    @NonNull
+    private AdapterView.OnItemClickListener todoListItemClickListener() {
+        return new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                if(!mGithub){
+                    mTodoRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                mTodoArray.add(snapshot.getValue(Todo.class));
+                            }
+                            //intent must be explicitly called within on data change or will fire too early
+                            Intent intent = new Intent(TodosActivity.this, TodoDetailActivity.class);
+                            intent.putExtra("todos", Parcels.wrap(mTodoArray));
+                            intent.putExtra("repo", Parcels.wrap(mRepo));
+                            intent.putExtra("position", i);
+                            startActivity(intent);
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                } else {
+                    Intent intent = new Intent(TodosActivity.this, TodoDetailActivity.class);
+                    intent.putExtra("todos", Parcels.wrap(mTodoArray));
+                    intent.putExtra("repo", Parcels.wrap(mRepo));
+                    intent.putExtra("position", i);
+                    startActivity(intent);
+                }
+            }
+        };
     }
 
     @Override
