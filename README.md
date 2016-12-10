@@ -4,7 +4,7 @@ An app for looking at and organizing your GitHub repository TODOs. Currently onl
 
 Currently users can:
 * register for an app account and login/logout with said account
-* search Github for repos and todos (currently being extracted from repo issues - for demo purposes please lookup this app: 'ewajm' for the github username) 
+* search Github by username for repos and todos (currently being extracted from repo issues - for demo purposes please lookup this app: 'ewajm' for the github username) 
 * save repos and todos from Github to firebase and associate them with their account
 * see their saved repos and todos
 * add new todos via firebase
