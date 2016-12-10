@@ -149,9 +149,7 @@ public class TodosActivity extends BaseActivity {
                 TodosActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(mTodoTitles.size() == 0){
-                            mTodoTitles.add("No TODOs yet! Why not add one?");
-                        }
+                        mTodoListView.setEmptyView(findViewById(android.R.id.empty));
                         mAdapter = new ArrayAdapter<>(TodosActivity.this, R.layout.custom_todo_list_item, mTodoTitles);
                         mTodoListView.setAdapter(mAdapter);
                         mTodoListView.setOnItemClickListener(todoListItemClickListener());
