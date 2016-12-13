@@ -16,6 +16,19 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -24,6 +37,8 @@ android {
     }
     buildTypes.each {
         it.buildConfigField 'String', 'GITHUB_TOKEN', GithubToken
+        it.buildConfigField 'String', 'GITHUB_CLIENT_ID', GithubClientId
+        it.buildConfigField 'String', 'GITHUB_CLIENT_SECRET', GithubClientSecret
     }
 }
 
@@ -33,7 +48,9 @@ dependencies {
     apt 'org.parceler:parceler:1.1.1'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'se.akerfeldt:okhttp-signpost:1.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'oauth.signpost:signpost-core:1.2.1.2'
     compile 'com.google.firebase:firebase-database:9.0.2'
     compile 'com.firebaseui:firebase-ui-database:0.4.1'
     compile 'com.google.firebase:firebase-auth:9.0.2'

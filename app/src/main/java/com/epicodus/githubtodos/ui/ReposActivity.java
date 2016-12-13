@@ -9,6 +9,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -68,6 +69,7 @@ public class ReposActivity extends BaseActivity {
         mGithub = mSharedPreferences.getBoolean(Constants.PREFERENCES_GITHUB_TOGGLE_KEY, false);
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
+
     }
 
     @Override
@@ -78,6 +80,7 @@ public class ReposActivity extends BaseActivity {
             mRecentUsernameSearch = mSharedPreferences.getString(Constants.PREFERENCES_USERNAME_KEY, null);
             if(mRecentUsernameSearch != null){
                 getRepos(mRecentUsernameSearch);
+                //getAuthToken();
             } else {
                 mEmptyView.setVisibility(View.VISIBLE);
                 mProjectRecyclerView.setVisibility(View.GONE);
@@ -87,6 +90,21 @@ public class ReposActivity extends BaseActivity {
             mRepoReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(userId);
             setUpFirebaseAdapter();
         }
+    }
+
+    private void getAuthToken() {
+        final GithubService githubService = new GithubService();
+        githubService.getUserToken("", "", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d(TAG, "onResponse: " + response.body().string());
+            }
+        });
     }
 
     private void setUpFirebaseAdapter() {
@@ -182,6 +200,7 @@ public class ReposActivity extends BaseActivity {
                 public boolean onQueryTextSubmit(String query) {
                     addToSharedPreferences(query);
                     getRepos(query);
+                    //getAuthToken();
                     return false;
                 }
 

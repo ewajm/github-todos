@@ -1,23 +1,31 @@
 package com.epicodus.githubtodos.services;
 
+import android.util.Log;
+
 import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
 import com.epicodus.githubtodos.models.User;
 
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
 
 /**
  * Created by Ewa on 12/2/2016.
@@ -38,6 +46,26 @@ public class GithubService {
         Call call = client.newCall(request);
         call.enqueue(callback);
     }
+
+    public static void getUserToken(String username, String password, Callback callback){
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("client_id", Constants.GITHUB_CLIENT_ID);
+        params.put("client_secret", Constants.GITHUB_CLIENT_SECRET);
+        params.put("note", "testing");
+        JSONObject parameter = new JSONObject(params);
+
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new BasicAuthIntercepter(username, password)).build();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.GITHUB_API_URL).newBuilder();
+        urlBuilder.addPathSegment("authorizations");
+        String url = urlBuilder.toString();
+        RequestBody body = RequestBody.create(JSON, parameter.toString());
+        Log.d("GithubService", "getUserToken: " + url);
+        Request request = new Request.Builder().url(url).post(body).build();
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+    }
+
 
     //limit to only issues created by owner?
     public static void getRepoIssues(String repoName, String username, Callback callback){

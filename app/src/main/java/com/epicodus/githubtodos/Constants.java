@@ -1,7 +1,11 @@
 package com.epicodus.githubtodos;
 
+import android.os.Build;
+
 public class Constants {
     public static final String GITHUB_TOKEN = BuildConfig.GITHUB_TOKEN;
+    public static final String GITHUB_CLIENT_ID = BuildConfig.GITHUB_CLIENT_ID;
+    public static final String GITHUB_CLIENT_SECRET = BuildConfig.GITHUB_CLIENT_SECRET;
     public static final String GITHUB_API_URL = "https://api.github.com";
     public static final String GITHUB_USERS_PATH = "users";
     public static final String GITHUB_REPOS_PATH = "repos";
