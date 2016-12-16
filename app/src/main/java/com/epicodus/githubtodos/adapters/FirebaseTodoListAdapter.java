@@ -2,6 +2,7 @@ package com.epicodus.githubtodos.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 
 import com.epicodus.githubtodos.R;
@@ -86,8 +87,13 @@ public class FirebaseTodoListAdapter extends FirebaseRecyclerAdapter<Todo, Saved
         viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                viewHolder.mUrgencyImageView.setImageResource(R.drawable.ic_action_done);
-                mTodos.get(viewHolder.getAdapterPosition()).setToDone(true);
+                Todo todo = mTodos.get(viewHolder.getAdapterPosition());
+                if(!todo.isToDone()) {
+                    viewHolder.mUrgencyImageView.setImageResource(R.drawable.ic_action_done);
+                    viewHolder.mUrgencyImageView.animate().rotationYBy(360).setDuration(1000);
+                    viewHolder.mTodoItemLayout.setBackgroundColor(Color.parseColor("#607D8B"));
+                    todo.setToDone(true);
+                }
                 return true;
             }
         });

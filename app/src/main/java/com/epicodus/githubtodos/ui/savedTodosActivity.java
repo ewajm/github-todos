@@ -16,17 +16,14 @@ import android.widget.TextView;
 import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.adapters.FirebaseTodoListAdapter;
-import com.epicodus.githubtodos.utils.OnStartDragListener;
 import com.epicodus.githubtodos.adapters.SavedTodoViewHolder;
-import com.epicodus.githubtodos.utils.SimpleItemTouchHelperCallback;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
+import com.epicodus.githubtodos.utils.OnStartDragListener;
+import com.epicodus.githubtodos.utils.SimpleItemTouchHelperCallback;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
@@ -43,7 +40,6 @@ public class SavedTodosActivity extends BaseActivity implements OnStartDragListe
     private ArrayList<Todo> mTodoArray = new ArrayList<>();
     private Repo mRepo;
     private String mUserId;
-    private Query mRepoQuery;
     private FirebaseTodoListAdapter mFirebaseAdapter;
     private Query mTodoRef;
     private ItemTouchHelper mItemTouchHelper;
@@ -87,59 +83,12 @@ public class SavedTodosActivity extends BaseActivity implements OnStartDragListe
         mTodoListView.setHasFixedSize(true);
         mTodoListView.setLayoutManager(new LinearLayoutManager(this));
         mTodoListView.setAdapter(mFirebaseAdapter);
-        //mTodoListView.setOnItemClickListener(todoListItemClickListener());
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mTodoListView);
     }
 
-    private void checkFirebaseForRepo() {
-        mRepoQuery = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId).orderByChild("url").equalTo(mRepo.getUrl());
-        mRepoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        mRepo.setPushId(snapshot.getKey());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
-//    @NonNull
-//    private AdapterView.OnItemClickListener todoListItemClickListener() {
-//        return new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-//                mTodoRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-//                            mTodoArray.add(snapshot.getValue(Todo.class));
-//                        }
-//                        //intent must be explicitly called within on data change or will fire too early
-//                        Intent intent = new Intent(TodosActivity.this, TodoDetailActivity.class);
-//                        intent.putExtra("todos", Parcels.wrap(mTodoArray));
-//                        intent.putExtra("repo", Parcels.wrap(mRepo));
-//                        intent.putExtra("position", i);
-//                        startActivity(intent);
-//                    }
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-//            }
-//        };
-//    }
 
     @Override
     protected void onStop() {
