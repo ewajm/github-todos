@@ -15,7 +15,7 @@
     <string name="main_heading_aside">At last, you can easily obsess about them wherever you go</string>
     <string name="bg_content_description">Background image with computer and Github usb stick</string>
     <string name="add_note_hint">Add a note here</string>
-    <string name="no_data_available">No Repos to display.</string>
+    <string name="no_data_available">No Repos to display. Try searching for a Github username above!</string>
     <string name="save">Save</string>
     <string name="no_todos_yet_why_not_add_one">No TODOs yet! Why not add one?</string>
     <string name="about_app_blurb">This app will let you manage your project project TODO lists wherever you go! Grab your TODOs from GitHub, save the ones you want to remember and (eventually) add notes/prioritize/organize them to your heart\'s content.</string>
@@ -28,4 +28,5 @@
     <string name="using_this_app">Using this app:</string>
     <string name="add">Add</string>
     <string name="add_note">Add Note</string>
+    <string name="no_saved_repos">No saved repos yet, please go to the Github section of the App and find some to save</string>
 </resources>

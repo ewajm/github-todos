@@ -18,19 +18,9 @@ import android.widget.Toast;
 
 import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.R;
-import com.epicodus.githubtodos.adapters.FirebaseRepoListAdapter;
 import com.epicodus.githubtodos.adapters.RepoListAdapter;
-import com.epicodus.githubtodos.adapters.RepoViewHolder;
-import com.epicodus.githubtodos.adapters.SavedRepoViewHolder;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.services.GithubService;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,9 +45,6 @@ public class ReposActivity extends BaseActivity {
     public ArrayList<Repo> mRepos;
     private RepoListAdapter mAdapter;
     private boolean mGithub;
-    private DatabaseReference mRepoReference;
-    private FirebaseRecyclerAdapter mFirebaseAdapter;
-    private ValueEventListener mRepoValueEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,51 +62,14 @@ public class ReposActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(mGithub){
-            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            mRecentUsernameSearch = mSharedPreferences.getString(Constants.PREFERENCES_USERNAME_KEY, null);
-            if(mRecentUsernameSearch != null){
-                getRepos(mRecentUsernameSearch);
-            } else {
-                mEmptyView.setVisibility(View.VISIBLE);
-                mProjectRecyclerView.setVisibility(View.GONE);
-            }
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mRecentUsernameSearch = mSharedPreferences.getString(Constants.PREFERENCES_USERNAME_KEY, null);
+        if(mRecentUsernameSearch != null){
+            getRepos(mRecentUsernameSearch);
         } else {
-            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            mRepoReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(userId);
-            setUpFirebaseAdapter();
+            mEmptyView.setVisibility(View.VISIBLE);
+            mProjectRecyclerView.setVisibility(View.GONE);
         }
-    }
-
-    private void setUpFirebaseAdapter() {
-        mFirebaseAdapter = new FirebaseRepoListAdapter(Repo.class, R.layout.repo_list_item_drag, SavedRepoViewHolder.class, mRepoReference, this, this);
-        //does this not need clean up?
-        mRepoReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.hasChildren()){
-                    if(mProjectRecyclerView.getVisibility() == View.VISIBLE){
-                        mProjectRecyclerView.setVisibility(View.GONE);
-                        mEmptyView.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    if(mProjectRecyclerView.getVisibility() == View.GONE){
-                        mProjectRecyclerView.setVisibility(View.VISIBLE);
-                        mEmptyView.setVisibility(View.GONE);
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        mProjectRecyclerView.setHasFixedSize(true);
-        mProjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mProjectRecyclerView.setAdapter(mFirebaseAdapter);
-        mGreetingTextView.setText(getString(R.string.firebase_repos_heading));
     }
 
     public void getRepos(String username){
@@ -164,31 +114,29 @@ public class ReposActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        if(mGithub){
-            inflater.inflate(R.menu.menu_search, menu);
-            ButterKnife.bind(this);
+        inflater.inflate(R.menu.menu_search, menu);
+        ButterKnife.bind(this);
 
-            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            mEditor = mSharedPreferences.edit();
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
 
-            MenuItem menuItem = menu.findItem(R.id.action_search);
-            SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    addToSharedPreferences(query);
-                    getRepos(query);
-                    return false;
-                }
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                addToSharedPreferences(query);
+                getRepos(query);
+                return false;
+            }
 
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    return false;
-                }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
 
-            });
-        }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -202,11 +150,4 @@ public class ReposActivity extends BaseActivity {
         mRecentUsernameSearch = username;
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(mFirebaseAdapter != null){
-            mFirebaseAdapter.cleanup();
-        }
-    }
 }

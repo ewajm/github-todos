@@ -1,6 +1,9 @@
 package com.epicodus.githubtodos.adapters;
 
 import android.content.Context;
+import android.support.v4.view.MotionEventCompat;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.epicodus.githubtodos.models.Repo;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -25,8 +28,17 @@ public class FirebaseRepoListAdapter extends FirebaseRecyclerAdapter<Repo, Saved
     }
 
     @Override
-    protected void populateViewHolder(SavedRepoViewHolder viewHolder, Repo model, int position) {
+    protected void populateViewHolder(final SavedRepoViewHolder viewHolder, Repo model, int position) {
         viewHolder.bindRepo(model);
+        viewHolder.mReorderIconView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mOnStartDragListener.onStartDrag(viewHolder);
+                }
+                return false;
+            }
+        });
     }
 
     @Override

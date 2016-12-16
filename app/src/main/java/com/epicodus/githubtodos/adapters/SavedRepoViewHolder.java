@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.epicodus.githubtodos.R;
@@ -19,12 +20,10 @@ import butterknife.ButterKnife;
  * Created by Guest on 12/16/16.
  */
 public class SavedRepoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    @Bind(R.id.repoNameTextView)
-    TextView mRepoNameTextView;
-    @Bind(R.id.repoLanguageTextView)
-    TextView mRepoLanguageTextView;
-    @Bind(R.id.repoDescriptionTextView)
-    TextView mRepoDescriptionTextView;
+    @Bind(R.id.repoNameTextView) TextView mRepoNameTextView;
+    @Bind(R.id.repoLanguageTextView) TextView mRepoLanguageTextView;
+    @Bind(R.id.repoDescriptionTextView) TextView mRepoDescriptionTextView;
+    @Bind(R.id.reorderIconView) ImageView mReorderIconView;
     Repo mRepo;
 
     Context mContext;
