@@ -16,6 +16,7 @@ public class Todo {
     boolean toDone;
     String pushId;
     String repoId;
+    String index;
 
     public Todo(String title, String body, int urgency, int difficulty) {
         this.title = title;
@@ -115,5 +116,13 @@ public class Todo {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
     }
 }

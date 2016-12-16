@@ -1,7 +1,9 @@
-package com.epicodus.githubtodos.adapters;
+package com.epicodus.githubtodos.utils;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+
+import com.epicodus.githubtodos.adapters.ItemTouchHelperAdapter;
 
 /**
  * Created by Guest on 12/16/16.

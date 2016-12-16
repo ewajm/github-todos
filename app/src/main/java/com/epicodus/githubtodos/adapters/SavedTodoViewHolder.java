@@ -1,16 +1,16 @@
 package com.epicodus.githubtodos.adapters;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Todo;
-import com.epicodus.githubtodos.ui.TodosActivity;
-
-import org.parceler.Parcels;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,10 +18,12 @@ import butterknife.ButterKnife;
 /**
  * Created by Guest on 12/16/16.
  */
-public class SavedTodoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class SavedTodoViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.titleTextView) TextView mTitleTextView;
-    @Bind(R.id.difficultyTextView) TextView mDifficultyTextView;
+    @Bind(R.id.urgencyImageView) ImageView mUrgencyImageView;
+    @Bind(R.id.todoItemLayout) RelativeLayout mTodoItemLayout;
     Todo mTodo;
+    String[] mColors = {"#37593D", "#756048", "#754B48", "#607D8B"};
 
     Context mContext;
 
@@ -29,19 +31,25 @@ public class SavedTodoViewHolder extends RecyclerView.ViewHolder implements View
         super(itemView);
         ButterKnife.bind(this, itemView);
         mContext = itemView.getContext();
-        itemView.setOnClickListener(this);
     }
 
     public void bindTodo(Todo todo) {
         mTodo = todo;
         mTitleTextView.setText(todo.getTitle());
-        mDifficultyTextView.setText("Difficulty: " + mTodo.getDifficulty());
+        switch (mTodo.getUrgency()){
+            case 3:
+                mUrgencyImageView.setImageResource(R.drawable.ic_least_urgent);
+                break;
+            case 4:
+                mUrgencyImageView.setImageResource(R.drawable.ic_med_urgent);
+                break;
+            case 5:
+                mUrgencyImageView.setImageResource(R.drawable.ic_most_urgent);
+                break;
+        }
+        int colorIndex = (int) Math.floor(mTodo.getDifficulty()/2);
+        Log.i("viewholder", "bindTodo: " + colorIndex);
+        mTodoItemLayout.setBackgroundColor(Color.parseColor(mColors[colorIndex]));
     }
 
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(mContext, TodosActivity.class);
-        intent.putExtra("todo", Parcels.wrap(mTodo));
-        mContext.startActivity(intent);
-    }
 }

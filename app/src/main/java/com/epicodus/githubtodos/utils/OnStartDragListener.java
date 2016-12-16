@@ -1,4 +1,4 @@
-package com.epicodus.githubtodos.adapters;
+package com.epicodus.githubtodos.utils;
 
 import android.support.v7.widget.RecyclerView;
 
