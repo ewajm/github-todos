@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_todos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.TodosActivity"
+    android:background="@color/colorPrimaryDark">
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/projectNameView"
+        android:textSize="25sp"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:textAlignment="center"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/websiteUrlView"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/todoRecyclerView"
+        android:layout_margin="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/websiteUrlView"
+        android:layout_below="@+id/projectNameView"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimaryLight"
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp"/>
+
+    <TextView android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/no_todos_yet_why_not_add_one" />
+</RelativeLayout>

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Repo;
-import com.epicodus.githubtodos.ui.TodosActivity;
+import com.epicodus.githubtodos.ui.SavedTodosActivity;
 
 import org.parceler.Parcels;
 
@@ -44,7 +44,7 @@ public class SavedRepoViewHolder extends RecyclerView.ViewHolder implements View
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(mContext, TodosActivity.class);
+        Intent intent = new Intent(mContext, SavedTodosActivity.class);
         intent.putExtra("repo", Parcels.wrap(mRepo));
         mContext.startActivity(intent);
     }

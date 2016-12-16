@@ -10,17 +10,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity"></activity>
+        <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.ReposActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity"></meta-data>
+                android:value=".ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.TodosActivity"></activity>
-        <activity android:name=".ui.TodoDetailActivity"></activity>
+        <activity android:name=".ui.TodosActivity" />
+        <activity android:name=".ui.TodoDetailActivity" />
         <activity
             android:name=".ui.CreateAccountActivity"
-            android:theme="@style/_AppThemeNoActionBar"></activity>
+            android:theme="@style/_AppThemeNoActionBar" />
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/_AppThemeNoActionBar">
@@ -30,14 +30,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.BaseActivity"></activity>
+        <activity android:name=".ui.BaseActivity" />
         <activity android:name=".ui.AboutActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity"></meta-data>
+                android:value=".ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.AddTodoActivity"></activity>
-        <activity android:name=".ui.SavedReposActivity"></activity>
+        <activity android:name=".ui.AddTodoActivity" />
+        <activity android:name=".ui.SavedReposActivity" />
+        <activity android:name=".ui.SavedTodosActivity"></activity>
     </application>
 
 </manifest>

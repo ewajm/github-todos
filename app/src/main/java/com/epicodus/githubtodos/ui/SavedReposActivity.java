@@ -35,7 +35,6 @@ public class SavedReposActivity extends BaseActivity implements OnStartDragListe
     public ArrayList<Repo> mRepos;
     private Query mRepoReference;
     private FirebaseRepoListAdapter mFirebaseAdapter;
-    private ValueEventListener mRepoValueEventListener;
     private ItemTouchHelper mItemTouchHelper;
 
     @Override

@@ -126,7 +126,7 @@ public class ReposActivity extends BaseActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                addToSharedPreferences(query);
+                addToSharedPreferences(query.trim());
                 getRepos(query);
                 return false;
             }

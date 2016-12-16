@@ -3,7 +3,6 @@ package com.epicodus.githubtodos.services;
 import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
-import com.epicodus.githubtodos.models.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
