@@ -1,40 +1,24 @@
 package com.epicodus.githubtodos.ui;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Repo;
-import com.epicodus.githubtodos.models.Todo;
-import com.google.firebase.database.Query;
 
 import org.parceler.Parcels;
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class TodosActivity extends BaseActivity {
-    public static final String TAG = TodosActivity.class.getSimpleName();
     @Bind(R.id.projectNameView) TextView mProjectNameView;
-    @Bind(R.id.todoListView) ListView mTodoListView;
     @Bind(R.id.websiteUrlView) TextView mWebsiteUrlView;
-    private ArrayList<Todo> mTodoArray = new ArrayList<>();
-    private ArrayAdapter<String> mAdapter;
-    private ArrayList<String> mTodoTitles;
     private Repo mRepo;
-    private SharedPreferences mSharedPreferences;
-    private String mCurrentUsername;
-    private String mUserId;
-    private Query mRepoQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +44,11 @@ public class TodosActivity extends BaseActivity {
             }
         });
 
+        TodosFragment fragment = new TodosFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("repo", Parcels.wrap(mRepo));
+        fragment.setArguments(args);
+        getSupportFragmentManager().beginTransaction().add(R.id.todoFrameLayout, fragment).commit();
     }
 
 }

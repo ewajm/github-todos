@@ -68,7 +68,7 @@ public class TodosFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
+        mRepo = Parcels.unwrap(getArguments().getParcelable("repo"));
         // Instructs fragment to include menu options:
         setHasOptionsMenu(true);
     }
