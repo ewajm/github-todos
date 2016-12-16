@@ -2,13 +2,17 @@ package com.epicodus.githubtodos.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
 import com.epicodus.githubtodos.ui.TodoDetailActivity;
+import com.epicodus.githubtodos.ui.TodoDetailFragment;
 import com.epicodus.githubtodos.utils.OnStartDragListener;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ChildEventListener;
@@ -31,6 +35,7 @@ public class FirebaseTodoListAdapter extends FirebaseRecyclerAdapter<Todo, Saved
     private ChildEventListener mChildEventListener;
     private ArrayList<Todo> mTodos = new ArrayList<>();
     private Repo mRepo;
+    private int mOrientation;
 
     public FirebaseTodoListAdapter(Class<Todo> modelClass, int modelLayout,
                            Class<SavedTodoViewHolder> viewHolderClass,
@@ -40,6 +45,7 @@ public class FirebaseTodoListAdapter extends FirebaseRecyclerAdapter<Todo, Saved
         mOnStartDragListener = onStartDragListener;
         mContext = context;
         mRepo = repo;
+
         mChildEventListener = mRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -73,14 +79,24 @@ public class FirebaseTodoListAdapter extends FirebaseRecyclerAdapter<Todo, Saved
     protected void populateViewHolder(final SavedTodoViewHolder viewHolder, Todo model, int position) {
         viewHolder.bindTodo(model);
 
+        mOrientation = viewHolder.itemView.getResources().getConfiguration().orientation;
+        if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            createDetailFragment(0);
+        }
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, TodoDetailActivity.class);
-                intent.putExtra("position", viewHolder.getAdapterPosition());
-                intent.putExtra("todos", Parcels.wrap(mTodos));
-                intent.putExtra("repo", Parcels.wrap(mRepo));
-                mContext.startActivity(intent);
+                int position = viewHolder.getAdapterPosition();
+                if(mOrientation == Configuration.ORIENTATION_LANDSCAPE){
+                    createDetailFragment(position);
+                } else {
+                    Intent intent = new Intent(mContext, TodoDetailActivity.class);
+                    intent.putExtra("position", position);
+                    intent.putExtra("todos", Parcels.wrap(mTodos));
+                    intent.putExtra("repo", Parcels.wrap(mRepo));
+                    mContext.startActivity(intent);
+                }
             }
         });
 
@@ -97,6 +113,17 @@ public class FirebaseTodoListAdapter extends FirebaseRecyclerAdapter<Todo, Saved
                 return true;
             }
         });
+    }
+
+    private void createDetailFragment(int position) {
+        // Creates new RestaurantDetailFragment with the given position:
+        TodoDetailFragment detailFragment = TodoDetailFragment.newInstance(mTodos.get(position), mRepo);
+        // Gathers necessary components to replace the FrameLayout in the layout with the RestaurantDetailFragment:
+        FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+        //  Replaces the FrameLayout with the RestaurantDetailFragment:
+        ft.replace(R.id.todoDetailFrameLayout, detailFragment);
+        // Commits these changes:
+        ft.commit();
     }
 
     @Override
