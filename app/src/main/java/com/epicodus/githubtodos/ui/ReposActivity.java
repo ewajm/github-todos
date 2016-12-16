@@ -18,8 +18,10 @@ import android.widget.Toast;
 
 import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.R;
+import com.epicodus.githubtodos.adapters.FirebaseRepoListAdapter;
 import com.epicodus.githubtodos.adapters.RepoListAdapter;
 import com.epicodus.githubtodos.adapters.RepoViewHolder;
+import com.epicodus.githubtodos.adapters.SavedRepoViewHolder;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.services.GithubService;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -90,12 +92,7 @@ public class ReposActivity extends BaseActivity {
     }
 
     private void setUpFirebaseAdapter() {
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Repo, RepoViewHolder>(Repo.class, R.layout.repo_list_item, RepoViewHolder.class, mRepoReference) {
-            @Override
-            protected void populateViewHolder(RepoViewHolder viewHolder, Repo model, int position) {
-                viewHolder.bindRepo(model);
-            }
-        };
+        mFirebaseAdapter = new FirebaseRepoListAdapter(Repo.class, R.layout.repo_list_item_drag, SavedRepoViewHolder.class, mRepoReference, this, this);
         //does this not need clean up?
         mRepoReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
