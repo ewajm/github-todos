@@ -1,5 +1,7 @@
 package com.epicodus.githubtodos.models;
 
+import com.epicodus.githubtodos.Constants;
+
 import org.parceler.Parcel;
 
 @Parcel
@@ -9,12 +11,14 @@ public class Repo {
     String language;
     String url;
     String pushId;
+    String index;
 
     public Repo(String name, String description, String language, String url) {
         this.name = name;
         this.description = description;
         this.language = language;
         this.url = url;
+        this.index = Constants.UNSPECIFIED_INDEX;
     }
 
     public Repo() {
@@ -58,4 +62,13 @@ public class Repo {
     public String getUrl() {
         return url;
     }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
+    }
+
 }

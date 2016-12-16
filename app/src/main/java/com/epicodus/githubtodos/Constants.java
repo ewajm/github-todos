@@ -11,4 +11,6 @@ public class Constants {
     public static final String PREFERENCES_GITHUB_TOGGLE_KEY = "github";
     public static final String FIREBASE_TODOS_REFERENCE = "todos";
     public static final String FIREBASE_REPOS_REFERENCE = "repos";
+    public static final String FIREBASE_QUERY_INDEX = "index";
+    public static final String UNSPECIFIED_INDEX = "not_specified";
 }

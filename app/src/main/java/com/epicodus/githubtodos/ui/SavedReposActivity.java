@@ -1,6 +1,5 @@
 package com.epicodus.githubtodos.ui;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,8 +18,8 @@ import com.epicodus.githubtodos.models.Repo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -30,13 +29,11 @@ import butterknife.ButterKnife;
 
 public class SavedReposActivity extends BaseActivity implements OnStartDragListener {
     private static final String TAG = SavedReposActivity.class.getSimpleName();
-    @Bind(R.id.greetingTextView)
-    TextView mGreetingTextView;
-    @Bind(R.id.projectRecyclerView)
-    RecyclerView mProjectRecyclerView;
+    @Bind(R.id.greetingTextView) TextView mGreetingTextView;
+    @Bind(R.id.projectRecyclerView) RecyclerView mProjectRecyclerView;
     @Bind(R.id.emptyView) TextView mEmptyView;
     public ArrayList<Repo> mRepos;
-    private DatabaseReference mRepoReference;
+    private Query mRepoReference;
     private FirebaseRepoListAdapter mFirebaseAdapter;
     private ValueEventListener mRepoValueEventListener;
     private ItemTouchHelper mItemTouchHelper;
@@ -47,7 +44,6 @@ public class SavedReposActivity extends BaseActivity implements OnStartDragListe
         setContentView(R.layout.activity_repos);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
     }
@@ -56,7 +52,7 @@ public class SavedReposActivity extends BaseActivity implements OnStartDragListe
     protected void onStart() {
         super.onStart();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mRepoReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(userId);
+        mRepoReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(userId).orderByChild(Constants.FIREBASE_QUERY_INDEX);
         setUpFirebaseAdapter();
     }
 
