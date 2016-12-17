@@ -1,7 +1,9 @@
 package com.epicodus.githubtodos.ui;
 
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -36,6 +38,7 @@ public class SavedReposActivity extends BaseActivity implements OnStartDragListe
     private Query mRepoReference;
     private FirebaseRepoListAdapter mFirebaseAdapter;
     private ItemTouchHelper mItemTouchHelper;
+    private int mOrientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class SavedReposActivity extends BaseActivity implements OnStartDragListe
 
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
+        mOrientation = getResources().getConfiguration().orientation;
     }
 
     @Override
@@ -83,7 +87,13 @@ public class SavedReposActivity extends BaseActivity implements OnStartDragListe
         });
 
         mProjectRecyclerView.setHasFixedSize(true);
-        mProjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView.LayoutManager layoutManager;
+        if(mOrientation == Configuration.ORIENTATION_LANDSCAPE){
+            layoutManager = new GridLayoutManager(this, 2);
+        } else {
+            layoutManager = new LinearLayoutManager(this);
+        }
+        mProjectRecyclerView.setLayoutManager(layoutManager);
         mProjectRecyclerView.setAdapter(mFirebaseAdapter);
         mGreetingTextView.setText(getString(R.string.firebase_repos_heading));
 
