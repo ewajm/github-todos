@@ -178,12 +178,12 @@ public class TodosFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_save, menu);
+        inflater.inflate(R.menu.menu_save_repo, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_save) {
+        if(item.getItemId() == R.id.action_save_repo) {
             if (mRepo.getPushId() == null) {
                 DatabaseReference repoRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId);
                 DatabaseReference pushRef = repoRef.push();

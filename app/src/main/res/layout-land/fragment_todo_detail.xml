@@ -1,87 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.epicodus.githubtodos.ui.TodoDetailFragment"
-    android:background="@color/colorPrimaryDark">
-    <RelativeLayout
+    android:background="@color/colorPrimaryDark"
+    android:padding="5dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Todo Title"
+        android:layout_alignParentTop="true"
+
+        android:textSize="20sp"
+        android:id="@+id/todoTitleTextView"
+        android:textColor="@color/colorAccent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date"
+        android:id="@+id/createdTextView"
+        android:layout_below="@+id/todoTitleTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryLight"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="website"
+        android:id="@+id/websiteTextView"
+        android:layout_below="@+id/createdTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryLight"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/bodyTextView"
+        android:visibility="gone"
+        android:layout_below="@+id/statsLinearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="16sp"
+        android:textColor="@color/colorIcons"/>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Todo Title"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            android:textSize="25sp"
-            android:id="@+id/todoTitleTextView"
-            android:textColor="@color/colorAccent"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="klj;lkj"
-            android:id="@+id/createdTextView"
-            android:layout_below="@+id/todoTitleTextView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimaryLight"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/websiteTextView"
-            android:layout_below="@+id/createdTextView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimaryLight"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/bodyTextView"
-            android:layout_below="@+id/websiteTextView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="16sp"
-            android:textColor="@color/colorIcons"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/websiteTextView"
+        android:id="@+id/statsLinearLayout">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/urgencyTextView"
-            android:layout_below="@+id/bodyTextView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:textSize="16sp"
+            android:layout_weight="1"
+            android:visibility="gone"
             android:textColor="@color/colorIcons"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/difficultyTextView"
-            android:layout_below="@+id/urgencyTextView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:textSize="16sp"
+            android:layout_weight="1"
+            android:visibility="gone"
             android:textColor="@color/colorIcons"/>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/notesScrollView"
+        android:layout_below="@+id/bodyTextView"
+        android:layout_above="@+id/addNoteLinearLayout">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/notesTitleTextView"
             android:text="Notes:"
-            android:layout_below="@+id/difficultyTextView"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginTop="5dp"
-            android:textColor="@color/colorIcons"/>
+            android:visibility="gone"
+            android:textColor="@color/colorAccent"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,33 +101,34 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textSize="16sp"
+            android:visibility="gone"
             android:textColor="@color/colorIcons"/>
-        <LinearLayout
+        </RelativeLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/addNoteLinearLayout"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone"
+        >
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/addNoteLinearLayout"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:visibility="gone"
-            >
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="9dp"
-                android:layout_weight="1"
-                android:id="@+id/addNoteEditText"
-                android:hint="@string/add_note"
-                android:textColorHint="@color/colorSecondaryText"
-                android:background="@color/colorPrimaryLight"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:id="@+id/addNoteButton"
-                android:text="@string/plus_sign"
-                android:textSize="24sp"/>
-        </LinearLayout>
-    </RelativeLayout>
-
-</FrameLayout>
+            android:padding="9dp"
+            android:layout_weight="1"
+            android:id="@+id/addNoteEditText"
+            android:hint="@string/add_note"
+            android:textColorHint="@color/colorSecondaryText"
+            android:background="@color/colorPrimaryLight"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:id="@+id/addNoteButton"
+            android:text="@string/plus_sign"
+            android:textSize="24sp"/>
+    </LinearLayout>
+</RelativeLayout>

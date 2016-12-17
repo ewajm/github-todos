@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,12 +31,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
-import org.w3c.dom.Text;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class TodoDetailFragment extends Fragment {
     private static final String TAG = "TodoDetailFragment";
@@ -51,6 +47,7 @@ public class TodoDetailFragment extends Fragment {
     @Bind(R.id.addNoteEditText) TextView mAddNoteEditText;
     @Bind(R.id.addNoteLinearLayout) LinearLayout mAddNoteLinearLayout;
     @Bind(R.id.notesTextView) TextView mNotesTextView;
+    @Bind(R.id.notesTitleTextView) TextView mNotesTitleTextView;
 
     private Todo mTodo;
     private Repo mRepo;
@@ -86,16 +83,26 @@ public class TodoDetailFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_todo_detail, container, false);
         ButterKnife.bind(this, view);
         mTodoTitleTextView.setText(mTodo.getTitle());
-        mBodyTextView.setText(mTodo.getBody());
+        if(mTodo.getBody().length()>0){
+            mBodyTextView.setText(mTodo.getBody());
+            mBodyTextView.setVisibility(View.VISIBLE);
+        }
         mCreatedTextView.setText(mTodo.getCreated());
-        mWebsiteTextView.setText(mTodo.getUrl());
+        if(mTodo.getUrl() != null){
+            mWebsiteTextView.setText(mTodo.getUrl());
+            mWebsiteTextView.setVisibility(View.VISIBLE);
+        } else {
+            mWebsiteTextView.setVisibility(View.GONE);
+        }
         if(mTodo.getNotes()!= null){
             mNotesTextView.setText(mTodo.getNotes());
         }
         if(mTodo.getUrgency() > 0){
+            mUrgencyTextView.setVisibility(View.VISIBLE);
             mUrgencyTextView.setText("Urgency: " + mTodo.getUrgency());
         }
         if(mTodo.getDifficulty() > 0){
+            mDifficultyTextView.setVisibility(View.VISIBLE);
             mDifficultyTextView.setText("Difficulty: " + mTodo.getDifficulty());
         }
 
@@ -103,7 +110,8 @@ public class TodoDetailFragment extends Fragment {
         if(mGithub){
             checkFirebaseForTodo();
         } else {
-
+            mNotesTitleTextView.setVisibility(View.VISIBLE);
+            mNotesTextView.setVisibility(View.VISIBLE);
             mAddNoteLinearLayout.setVisibility(View.VISIBLE);
             mAddNoteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -153,14 +161,14 @@ public class TodoDetailFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Log.d(TAG, "onCreateOptionsMenu: " + mGithub);
         if(mGithub){
-            inflater.inflate(R.menu.menu_save, menu);
+            inflater.inflate(R.menu.menu_save_todo, menu);
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_save){
+        if(item.getItemId() == R.id.action_save_todo){
             if(mTodo.getPushId() == null){
                 DatabaseReference repoRef =  FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId);
                 DatabaseReference pushRef = mTodoRef.push();

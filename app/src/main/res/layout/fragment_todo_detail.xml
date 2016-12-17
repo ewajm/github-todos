@@ -1,18 +1,15 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.epicodus.githubtodos.ui.TodoDetailFragment"
-             android:background="@color/colorPrimaryDark">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-       >
+             android:background="@color/colorPrimaryDark"
+             android:layout_margin="10dp"
+             android:padding="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="Todo Title"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
@@ -23,7 +20,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
+            android:text="date"
+            android:visibility="gone"
             android:id="@+id/createdTextView"
             android:layout_below="@+id/todoTitleTextView"
             android:layout_alignParentLeft="true"
@@ -34,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
+            android:text="website"
             android:id="@+id/websiteTextView"
             android:layout_below="@+id/createdTextView"
             android:layout_alignParentLeft="true"
@@ -45,7 +43,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
+            android:text="body"
+            android:visibility="gone"
             android:id="@+id/bodyTextView"
             android:layout_below="@+id/websiteTextView"
             android:layout_alignParentLeft="true"
@@ -60,6 +59,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textSize="16sp"
+            android:text="urgency"
+            android:visibility="gone"
             android:textColor="@color/colorIcons"/>
         <TextView
             android:layout_width="wrap_content"
@@ -69,6 +70,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textSize="16sp"
+            android:text="difficulty"
+            android:visibility="gone"
             android:textColor="@color/colorIcons"/>
         <TextView
             android:layout_width="wrap_content"
@@ -79,6 +82,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textSize="18sp"
+            android:visibility="gone"
             android:layout_marginTop="5dp"
             android:textColor="@color/colorIcons"/>
         <TextView
@@ -86,6 +90,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/notesTextView"
             android:text="no notes yet!"
+            android:visibility="gone"
             android:layout_below="@+id/notesTitleTextView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -117,6 +122,4 @@
                 android:text="@string/plus_sign"
                 android:textSize="24sp"/>
         </LinearLayout>
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>
