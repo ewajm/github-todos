@@ -1,8 +1,8 @@
 package com.epicodus.githubtodos.ui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,8 +21,6 @@ import org.parceler.Parcels;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import static java.security.AccessController.getContext;
 
 public class AddTodoActivity extends AppCompatActivity {
     @Bind(R.id.titleEditText) EditText mTitleEditText;
@@ -63,7 +61,7 @@ public class AddTodoActivity extends AppCompatActivity {
                     pushRef.setValue(mTodo);
                     repoRef.child(mRepo.getPushId()).child("todos").child(pushId).setValue(true);
                     Toast.makeText(AddTodoActivity.this, "Todo saved", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddTodoActivity.this, TodosActivity.class);
+                    Intent intent = new Intent(AddTodoActivity.this, SavedTodosActivity.class);
                     intent.putExtra("repo", Parcels.wrap(mRepo));
                     startActivity(intent);
                     finish();

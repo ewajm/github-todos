@@ -1,5 +1,6 @@
 package com.epicodus.githubtodos.adapters;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -7,7 +8,9 @@ import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 
+import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
@@ -103,12 +106,33 @@ public class FirebaseTodoListAdapter extends FirebaseRecyclerAdapter<Todo, Saved
         viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Todo todo = mTodos.get(viewHolder.getAdapterPosition());
+                final Todo todo = mTodos.get(viewHolder.getAdapterPosition());
                 if(!todo.isToDone()) {
                     viewHolder.mUrgencyImageView.setImageResource(R.drawable.ic_action_done);
-                    viewHolder.mUrgencyImageView.animate().rotationYBy(360).setDuration(1000);
-                    viewHolder.mTodoItemLayout.setBackgroundColor(Color.parseColor("#607D8B"));
-                    todo.setToDone(true);
+                    ViewPropertyAnimator viewPropertyAnimator = viewHolder.mUrgencyImageView.animate().rotationYBy(360).setDuration(1000);
+                    viewPropertyAnimator.setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            viewHolder.mTodoItemLayout.setBackgroundColor(Color.parseColor("#607D8B"));
+                            todo.setToDone(true);
+                            getRef(viewHolder.getAdapterPosition()).child(Constants.FIREBASE_TODONE_REFERENCE).setValue(true);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
                 }
                 return true;
             }

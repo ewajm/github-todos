@@ -130,6 +130,8 @@ public class TodoDetailFragment extends Fragment {
                         imm.hideSoftInputFromWindow(mAddNoteEditText.getWindowToken(), 0);
                         mAddNoteEditText.setText("");
 
+                    } else {
+                        Toast.makeText(getActivity(), "Write a note, first!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

@@ -2,10 +2,12 @@ package com.epicodus.githubtodos.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -44,6 +46,7 @@ public class ReposActivity extends BaseActivity {
     @Bind(R.id.emptyView) TextView mEmptyView;
     public ArrayList<Repo> mRepos;
     private RepoListAdapter mAdapter;
+    private int mOrientation;
     private boolean mGithub;
 
     @Override
@@ -57,6 +60,7 @@ public class ReposActivity extends BaseActivity {
         mGithub = mSharedPreferences.getBoolean(Constants.PREFERENCES_GITHUB_TOGGLE_KEY, false);
         Typeface sciFont = Typeface.createFromAsset(getAssets(), "fonts/SciFly-Sans.ttf");
         mGreetingTextView.setTypeface(sciFont);
+        mOrientation = getResources().getConfiguration().orientation;
     }
 
     @Override
@@ -94,7 +98,12 @@ public class ReposActivity extends BaseActivity {
                             mGreetingTextView.setText(String.format(getString(R.string.github_repos_heading), mRecentUsernameSearch));
                             mAdapter = new RepoListAdapter(mRepos, getApplicationContext());
                             mProjectRecyclerView.setAdapter(mAdapter);
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ReposActivity.this);
+                            RecyclerView.LayoutManager layoutManager;
+                            if(mOrientation == Configuration.ORIENTATION_LANDSCAPE){
+                                layoutManager = new GridLayoutManager(ReposActivity.this, 2);
+                            } else {
+                                layoutManager = new LinearLayoutManager(ReposActivity.this);
+                            }
                             mProjectRecyclerView.setLayoutManager(layoutManager);
                             mProjectRecyclerView.setHasFixedSize(true);
                         }  else {

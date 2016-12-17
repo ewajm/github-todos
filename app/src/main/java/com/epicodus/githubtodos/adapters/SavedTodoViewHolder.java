@@ -3,7 +3,6 @@ package com.epicodus.githubtodos.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -36,20 +35,24 @@ public class SavedTodoViewHolder extends RecyclerView.ViewHolder {
     public void bindTodo(Todo todo) {
         mTodo = todo;
         mTitleTextView.setText(todo.getTitle());
-        switch (mTodo.getUrgency()){
-            case 3:
-                mUrgencyImageView.setImageResource(R.drawable.ic_least_urgent);
-                break;
-            case 4:
-                mUrgencyImageView.setImageResource(R.drawable.ic_med_urgent);
-                break;
-            case 5:
-                mUrgencyImageView.setImageResource(R.drawable.ic_most_urgent);
-                break;
+        if(mTodo.isToDone()){
+            mUrgencyImageView.setImageResource(R.drawable.ic_action_done);
+            mTodoItemLayout.setBackgroundColor(Color.parseColor(mColors[3]));
+        } else {
+            switch (mTodo.getUrgency()) {
+                case 3:
+                    mUrgencyImageView.setImageResource(R.drawable.ic_least_urgent);
+                    break;
+                case 4:
+                    mUrgencyImageView.setImageResource(R.drawable.ic_med_urgent);
+                    break;
+                case 5:
+                    mUrgencyImageView.setImageResource(R.drawable.ic_most_urgent);
+                    break;
+            }
+            int colorIndex = (int) Math.floor(mTodo.getDifficulty() / 2);
+            mTodoItemLayout.setBackgroundColor(Color.parseColor(mColors[colorIndex]));
         }
-        int colorIndex = (int) Math.floor(mTodo.getDifficulty()/2);
-        Log.i("viewholder", "bindTodo: " + colorIndex);
-        mTodoItemLayout.setBackgroundColor(Color.parseColor(mColors[colorIndex]));
     }
 
 }
