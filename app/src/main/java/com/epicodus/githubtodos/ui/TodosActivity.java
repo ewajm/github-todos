@@ -48,7 +48,7 @@ public class TodosActivity extends BaseActivity {
         Bundle args = new Bundle();
         args.putParcelable("repo", Parcels.wrap(mRepo));
         fragment.setArguments(args);
-        getSupportFragmentManager().beginTransaction().add(R.id.todoFrameLayout, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.todoFrameLayout, fragment).commit();
     }
 
 }

@@ -3,10 +3,12 @@ package com.epicodus.githubtodos.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -58,6 +60,7 @@ public class TodosFragment extends Fragment {
     private boolean mGithub;
     private String mUserId;
     private Query mRepoQuery;
+    private int mOrientation;
 
     public TodosFragment() {
         // Required empty public constructor
@@ -83,7 +86,7 @@ public class TodosFragment extends Fragment {
         ButterKnife.bind(this, view);
         mCurrentUsername = mSharedPreferences.getString(Constants.PREFERENCES_USERNAME_KEY, null);
         mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+        mOrientation = view.getResources().getConfiguration().orientation;
         return view;
     }
 
@@ -136,10 +139,23 @@ public class TodosFragment extends Fragment {
                         mAdapter = new ArrayAdapter<>(getActivity(), R.layout.custom_todo_list_item, mTodoTitles);
                         mTodoListView.setAdapter(mAdapter);
                         mTodoListView.setOnItemClickListener(todoListItemClickListener());
+                        if(mOrientation == Configuration.ORIENTATION_LANDSCAPE){
+                            createDetailFragment(0);
+                        }
                     }
                 });
             }
         });
+    }
+
+    private void createDetailFragment(int position) {
+        TodoDetailFragment detailFragment = TodoDetailFragment.newInstance(mTodoArray.get(position), mRepo);
+        // Gathers necessary components to replace the FrameLayout in the layout with the RestaurantDetailFragment:
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        //  Replaces the FrameLayout with the RestaurantDetailFragment:
+        ft.replace(R.id.todoDetailFrameLayout, detailFragment);
+        // Commits these changes:
+        ft.commit();
     }
 
     @NonNull
@@ -147,11 +163,15 @@ public class TodosFragment extends Fragment {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                Intent intent = new Intent(getActivity(), TodoDetailActivity.class);
-                intent.putExtra("todos", Parcels.wrap(mTodoArray));
-                intent.putExtra("repo", Parcels.wrap(mRepo));
-                intent.putExtra("position", i);
-                startActivity(intent);
+                if(mOrientation == Configuration.ORIENTATION_LANDSCAPE){
+                    createDetailFragment(i);
+                } else {
+                    Intent intent = new Intent(getActivity(), TodoDetailActivity.class);
+                    intent.putExtra("todos", Parcels.wrap(mTodoArray));
+                    intent.putExtra("repo", Parcels.wrap(mRepo));
+                    intent.putExtra("position", i);
+                    startActivity(intent);
+                }
             }
         };
     }
