@@ -44,12 +44,23 @@ public class SavedTodosActivity extends BaseActivity {
                 startActivity(webIntent);
             }
         });
-
-        SavedTodosFragment fragment = new SavedTodosFragment();
-        Bundle args = new Bundle();
-        args.putParcelable("repo", Parcels.wrap(mRepo));
-        fragment.setArguments(args);
-        getSupportFragmentManager().beginTransaction().add(R.id.todoFrameLayout, fragment).commit();
+        if (savedInstanceState == null) {
+            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+            android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction();
+            SavedTodosFragment fragment = new SavedTodosFragment();
+            Bundle args = new Bundle();
+            args.putParcelable("repo", Parcels.wrap(mRepo));
+            fragment.setArguments(args);
+            transaction.add(R.id.todoFrameLayout, fragment).commit();
+        } else {
+            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+            android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction();
+            SavedTodosFragment fragment = new SavedTodosFragment();
+            Bundle args = new Bundle();
+            args.putParcelable("repo", Parcels.wrap(mRepo));
+            fragment.setArguments(args);
+            transaction.replace(R.id.todoFrameLayout, fragment).commit();
+        }
     }
 
 
