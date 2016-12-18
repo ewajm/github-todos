@@ -40,6 +40,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'org.parceler:parceler-api:1.1.1'
+    compile 'com.github.paolorotolo:appintro:4.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
