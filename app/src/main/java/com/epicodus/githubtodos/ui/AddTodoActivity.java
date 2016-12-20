@@ -50,7 +50,7 @@ public class AddTodoActivity extends AppCompatActivity {
                 if(title.length() > 0 && !title.equals("TODO:")){
                     String body = mBodyEditText.getText().toString().trim();
                     int urgency = mUrgencySeekBar.getProgress();
-                    int difficulty = mUrgencySeekBar.getProgress();
+                    int difficulty = mDifficultySeekBar.getProgress();
                     mTodo = new Todo(title, body, urgency, difficulty);
                     DatabaseReference todoRef =  FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId);
                     DatabaseReference repoRef =  FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId);
