@@ -32,11 +32,11 @@ import java.util.ArrayList;
  * Created by Guest on 12/16/16.
  */
 public class FirebaseTodoListAdapter extends FirebaseRecyclerAdapter<Todo, SavedTodoViewHolder> implements ItemTouchHelperAdapter{
-    private DatabaseReference mRef;
+    private Query mRef;
     private OnStartDragListener mOnStartDragListener;
     private Context mContext;
     private ChildEventListener mChildEventListener;
-    private ArrayList<Todo> mTodos = new ArrayList<>();
+    private ArrayList<Todo> mTodos;
     private Repo mRepo;
     private int mOrientation;
 
@@ -44,12 +44,13 @@ public class FirebaseTodoListAdapter extends FirebaseRecyclerAdapter<Todo, Saved
                            Class<SavedTodoViewHolder> viewHolderClass,
                            Query ref, OnStartDragListener onStartDragListener, Context context, Repo repo) {
         super(modelClass, modelLayout, viewHolderClass, ref);
-        mRef = ref.getRef();
+        mRef = ref;
         mOnStartDragListener = onStartDragListener;
         mContext = context;
         mRepo = repo;
+        mTodos = new ArrayList<>();
 
-        mChildEventListener = mRef.addChildEventListener(new ChildEventListener() {
+        mChildEventListener = ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 mTodos.add(dataSnapshot.getValue(Todo.class));
