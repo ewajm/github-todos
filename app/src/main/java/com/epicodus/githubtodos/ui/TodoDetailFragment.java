@@ -22,6 +22,7 @@ import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
+import com.epicodus.githubtodos.utils.DatabaseUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -106,7 +107,7 @@ public class TodoDetailFragment extends Fragment {
             mDifficultyTextView.setText("Difficulty: " + mTodo.getDifficulty());
         }
 
-        mTodoRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId);
+        mTodoRef = DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId);
         if(mGithub){
             checkFirebaseForTodo();
         } else {
@@ -140,7 +141,7 @@ public class TodoDetailFragment extends Fragment {
     }
 
     private void checkFirebaseForTodo() {
-        Query repoQuery = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId).orderByChild("url").equalTo(mTodo.getUrl());
+        Query repoQuery = DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId).orderByChild("url").equalTo(mTodo.getUrl());
         repoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -161,7 +162,6 @@ public class TodoDetailFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d(TAG, "onCreateOptionsMenu: " + mGithub);
         if(mGithub){
             inflater.inflate(R.menu.menu_save_todo, menu);
         }
@@ -172,19 +172,19 @@ public class TodoDetailFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_save_todo){
             if(mTodo.getPushId() == null){
-                DatabaseReference repoRef =  FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId);
-                DatabaseReference pushRef = mTodoRef.push();
+                DatabaseReference repoRef =  DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId);
                 if(mRepo.getPushId() == null){
                     DatabaseReference repoPushRef = repoRef.push();
                     String repoPushId = repoPushRef.getKey();
                     mRepo.setPushId(repoPushId);
                     repoPushRef.setValue(mRepo);
                 }
+                DatabaseReference pushRef = mTodoRef.child(mRepo.getPushId()).push();
                 mTodo.setRepoId(mRepo.getPushId());
                 String pushId = pushRef.getKey();
                 mTodo.setPushId(pushId);
                 pushRef.setValue(mTodo);
-                repoRef.child(mRepo.getPushId()).child("todos").child(pushId).setValue(true);
+                repoRef.child(mRepo.getPushId()).child("todos").child(pushId).setValue(mTodo.getTitle());
                 Toast.makeText(getContext(), "Todo saved", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getContext(), "You have already saved this Todo", Toast.LENGTH_SHORT).show();

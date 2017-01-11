@@ -26,6 +26,7 @@ import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
 import com.epicodus.githubtodos.services.GithubService;
+import com.epicodus.githubtodos.utils.DatabaseUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -98,7 +99,7 @@ public class TodosFragment extends Fragment {
     }
 
     private void checkFirebaseForRepo() {
-        mRepoQuery = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId).orderByChild("url").equalTo(mRepo.getUrl());
+        mRepoQuery = DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId).orderByChild("url").equalTo(mRepo.getUrl());
         mRepoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -185,7 +186,7 @@ public class TodosFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_save_repo) {
             if (mRepo.getPushId() == null) {
-                DatabaseReference repoRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId);
+                DatabaseReference repoRef = DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId);
                 DatabaseReference pushRef = repoRef.push();
                 String pushId = pushRef.getKey();
                 mRepo.setPushId(pushId);

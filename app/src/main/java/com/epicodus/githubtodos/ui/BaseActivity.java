@@ -10,13 +10,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.epicodus.githubtodos.R;
+import com.epicodus.githubtodos.utils.DatabaseUtil;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (FirebaseApp.getApps(this).isEmpty()) {
+            FirebaseApp.initializeApp(this, FirebaseOptions.fromResource(this));
+            DatabaseUtil.getDatabase().getInstance().setPersistenceEnabled(true);
+        }
     }
 
     @Override

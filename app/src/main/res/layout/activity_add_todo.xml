@@ -27,7 +27,6 @@
             android:background="@android:color/white"
             android:hint="Title (required)"
             android:text="TODO: "
-            android:inputType="textEmailAddress"
             android:nextFocusDown="@+id/bodyEditText"
             android:padding="10dp"
             android:layout_marginBottom="10dp"

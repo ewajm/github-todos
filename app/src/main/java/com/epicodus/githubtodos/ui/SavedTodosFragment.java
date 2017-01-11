@@ -21,9 +21,11 @@ import com.epicodus.githubtodos.adapters.FirebaseTodoListAdapter;
 import com.epicodus.githubtodos.adapters.SavedTodoViewHolder;
 import com.epicodus.githubtodos.models.Repo;
 import com.epicodus.githubtodos.models.Todo;
+import com.epicodus.githubtodos.utils.DatabaseUtil;
 import com.epicodus.githubtodos.utils.OnStartDragListener;
 import com.epicodus.githubtodos.utils.SimpleItemTouchHelperCallback;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
@@ -78,7 +80,7 @@ public class SavedTodosFragment extends Fragment implements OnStartDragListener 
     }
 
     private void setUpFirebaseAdapter() {
-        mTodoRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId).orderByChild("repoId").equalTo(mRepo.getPushId());
+        mTodoRef = DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId).child(mRepo.getPushId()).orderByChild("toDone");
         mFirebaseAdapter = new FirebaseTodoListAdapter(Todo.class, R.layout.saved_todo_list_item, SavedTodoViewHolder.class, mTodoRef, this, getActivity(), mRepo);
         mTodoListView.setHasFixedSize(true);
         mTodoListView.setLayoutManager(new LinearLayoutManager(getActivity()));

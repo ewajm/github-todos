@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.epicodus.githubtodos.Constants;
 import com.epicodus.githubtodos.R;
 import com.epicodus.githubtodos.adapters.FirebaseRepoListAdapter;
+import com.epicodus.githubtodos.utils.DatabaseUtil;
 import com.epicodus.githubtodos.utils.OnStartDragListener;
 import com.epicodus.githubtodos.adapters.SavedRepoViewHolder;
 import com.epicodus.githubtodos.utils.SimpleItemTouchHelperCallback;
@@ -55,7 +56,7 @@ public class SavedReposActivity extends BaseActivity implements OnStartDragListe
     protected void onStart() {
         super.onStart();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mRepoReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(userId).orderByChild(Constants.FIREBASE_QUERY_INDEX);
+        mRepoReference = DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(userId).orderByChild(Constants.FIREBASE_QUERY_INDEX);
         setUpFirebaseAdapter();
     }
 
