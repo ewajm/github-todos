@@ -2,11 +2,13 @@ package com.epicodus.githubtodos.adapters;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 
@@ -22,11 +24,13 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Guest on 12/16/16.
@@ -157,9 +161,22 @@ public class FirebaseTodoListAdapter extends FirebaseRecyclerAdapter<Todo, Saved
     }
 
     @Override
-    public void onItemDismiss(int position) {
-        mTodos.remove(position);
-        getRef(position).removeValue();
+    public void onItemDismiss(final int position) {
+        new AlertDialog.Builder(mContext)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Delete")
+                .setMessage("Delete TODO forever?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mTodos.remove(position);
+                        getRef(position).removeValue();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     @Override

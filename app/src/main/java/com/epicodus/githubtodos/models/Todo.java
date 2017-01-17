@@ -16,8 +16,9 @@ public class Todo {
     boolean toDone;
     String pushId;
     String repoId;
+    int type;
 
-    public Todo(String title, String body, int urgency, int difficulty) {
+    public Todo(String title, String body, int urgency, int difficulty, int type) {
         this.title = title;
         this.body = body;
         this.urgency = urgency;
@@ -25,6 +26,7 @@ public class Todo {
         Date date = new Date(System.currentTimeMillis());
         this.created = date.toString();
         this.toDone = false;
+        this.type = type;
     }
 
     public Todo() {
@@ -117,4 +119,11 @@ public class Todo {
         this.notes = notes;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 }

@@ -5,16 +5,52 @@
     android:layout_height="match_parent"
     tools:context="com.epicodus.githubtodos.ui.TodoDetailFragment"
     android:background="@color/colorPrimaryDark"
-    android:padding="5dp">
+    android:paddingRight="26dp"
+    android:paddingLeft="26dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/statsLinearLayout"
+        android:weightSum="7">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_feature"
+            android:id="@+id/todoTypeIcon"
+            android:layout_weight="1"
+            android:layout_marginTop="-5dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/urgencyTextView"
+            android:textSize="18sp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@color/colorIcons"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficultyTextView"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:visibility="gone"
+            android:textColor="@color/colorIcons"/>
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Todo Title"
-        android:layout_alignParentTop="true"
-
+        android:layout_below="@id/statsLinearLayout"
         android:textSize="20sp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:id="@+id/todoTitleTextView"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorDivider"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,33 +80,12 @@
         android:text="New Text"
         android:id="@+id/bodyTextView"
         android:visibility="gone"
-        android:layout_below="@+id/statsLinearLayout"
+        android:layout_below="@+id/websiteTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="16sp"
         android:textColor="@color/colorIcons"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/websiteTextView"
-        android:id="@+id/statsLinearLayout">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/urgencyTextView"
-            android:textSize="16sp"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:textColor="@color/colorIcons"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/difficultyTextView"
-            android:textSize="16sp"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:textColor="@color/colorIcons"/>
-    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

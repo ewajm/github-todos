@@ -21,6 +21,7 @@ public class SavedTodoViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.titleTextView) TextView mTitleTextView;
     @Bind(R.id.urgencyImageView) ImageView mUrgencyImageView;
     @Bind(R.id.todoItemLayout) RelativeLayout mTodoItemLayout;
+    @Bind(R.id.todoTypeIcon) ImageView mTodoTypeIcon;
     Todo mTodo;
     String[] mColors = {"#37593D", "#756048", "#754B48", "#607D8B"};
 
@@ -35,11 +36,17 @@ public class SavedTodoViewHolder extends RecyclerView.ViewHolder {
     public void bindTodo(Todo todo) {
         mTodo = todo;
         mTitleTextView.setText(todo.getTitle());
+        int[] typeIcons = {R.drawable.ic_feature, R.drawable.ic_tweak, R.drawable.ic_bug};
+        mTodoTypeIcon.setImageResource(typeIcons[mTodo.getType()]);
         if(mTodo.isToDone()){
             mUrgencyImageView.setImageResource(R.drawable.ic_action_done);
             mTodoItemLayout.setBackgroundColor(Color.parseColor(mColors[3]));
         } else {
             switch (mTodo.getUrgency()) {
+                case 1:
+                case 2:
+                    mUrgencyImageView.setVisibility(View.INVISIBLE);
+                    break;
                 case 3:
                     mUrgencyImageView.setImageResource(R.drawable.ic_least_urgent);
                     break;

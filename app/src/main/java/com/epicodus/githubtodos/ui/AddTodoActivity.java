@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.epicodus.githubtodos.Constants;
@@ -29,6 +30,8 @@ public class AddTodoActivity extends AppCompatActivity {
     @Bind(R.id.addTodoButton) Button mAddTodoButton;
     @Bind(R.id.urgencySeekBar) SeekBar mUrgencySeekBar;
     @Bind(R.id.difficultySeekBar) SeekBar mDifficultySeekBar;
+    @Bind(R.id.todoTypeSpinner)
+    Spinner mTodoTypeSpinner;
 
     private Todo mTodo;
     private Repo mRepo;
@@ -52,7 +55,8 @@ public class AddTodoActivity extends AppCompatActivity {
                     String body = mBodyEditText.getText().toString().trim();
                     int urgency = mUrgencySeekBar.getProgress();
                     int difficulty = mDifficultySeekBar.getProgress();
-                    mTodo = new Todo(title, body, urgency, difficulty);
+                    int type = mTodoTypeSpinner.getSelectedItemPosition();
+                    mTodo = new Todo(title, body, urgency, difficulty, type);
                     DatabaseReference todoRef =  DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId).child(mRepo.getPushId());
                     DatabaseReference repoRef =  DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_REPOS_REFERENCE).child(mUserId);
                     DatabaseReference pushRef = todoRef.push();

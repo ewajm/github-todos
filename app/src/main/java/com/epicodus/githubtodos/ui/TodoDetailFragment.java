@@ -3,6 +3,7 @@ package com.epicodus.githubtodos.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +51,7 @@ public class TodoDetailFragment extends Fragment {
     @Bind(R.id.addNoteLinearLayout) LinearLayout mAddNoteLinearLayout;
     @Bind(R.id.notesTextView) TextView mNotesTextView;
     @Bind(R.id.notesTitleTextView) TextView mNotesTitleTextView;
+    @Bind(R.id.todoTypeIcon) ImageView mTodoTypeIcon;
 
     private Todo mTodo;
     private Repo mRepo;
@@ -98,14 +101,26 @@ public class TodoDetailFragment extends Fragment {
         if(mTodo.getNotes()!= null){
             mNotesTextView.setText(mTodo.getNotes());
         }
-        if(mTodo.getUrgency() > 0){
+        if(mTodo.isToDone())
+        {
             mUrgencyTextView.setVisibility(View.VISIBLE);
-            mUrgencyTextView.setText("Urgency: " + mTodo.getUrgency());
+            mUrgencyTextView.setText("FINISHED");
+        } else {
+            if(mTodo.getUrgency() > 0){
+                mUrgencyTextView.setVisibility(View.VISIBLE);
+                String[] urgencies = {"Optional", "Not Urgent", "Urgent", "URGENT!", "VERY URGENT!"};
+                mUrgencyTextView.setText(urgencies[mTodo.getUrgency()-1]);
+            }
+            if(mTodo.getDifficulty() > 0){
+                String[] colors = {"#749A7B", "#FFDB97", "#FF8D84"};
+                String[] difficulties = {"Very Easy", "Easy", "Average", "Hard", "Uhhh How I?"};
+                mDifficultyTextView.setVisibility(View.VISIBLE);
+                mDifficultyTextView.setText(difficulties[mTodo.getDifficulty()-1]);
+                mDifficultyTextView.setTextColor(Color.parseColor(colors[(int) Math.floor(mTodo.getDifficulty()/2.5)]));
+            }
         }
-        if(mTodo.getDifficulty() > 0){
-            mDifficultyTextView.setVisibility(View.VISIBLE);
-            mDifficultyTextView.setText("Difficulty: " + mTodo.getDifficulty());
-        }
+        int[] typeIcons = {R.drawable.ic_feature, R.drawable.ic_tweak, R.drawable.ic_bug};
+        mTodoTypeIcon.setImageResource(typeIcons[mTodo.getType()]);
 
         mTodoRef = DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId);
         if(mGithub){

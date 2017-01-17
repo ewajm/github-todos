@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="todo_types">
+        <item>Feature</item>
+        <item>Code Tweak</item>
+        <item>Bug Fix</item>
+    </string-array>
+</resources>
