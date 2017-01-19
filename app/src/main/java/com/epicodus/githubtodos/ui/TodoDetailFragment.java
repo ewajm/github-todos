@@ -2,6 +2,7 @@ package com.epicodus.githubtodos.ui;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -122,7 +123,7 @@ public class TodoDetailFragment extends Fragment {
         int[] typeIcons = {R.drawable.ic_feature, R.drawable.ic_tweak, R.drawable.ic_bug};
         mTodoTypeIcon.setImageResource(typeIcons[mTodo.getType()]);
 
-        mTodoRef = DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId);
+        mTodoRef = DatabaseUtil.getDatabase().getInstance().getReference(Constants.FIREBASE_TODOS_REFERENCE).child(mUserId).child(mTodo.getRepoId());
         if(mGithub){
             checkFirebaseForTodo();
         } else {
@@ -179,6 +180,8 @@ public class TodoDetailFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if(mGithub){
             inflater.inflate(R.menu.menu_save_todo, menu);
+        } else {
+            inflater.inflate(R.menu.menu_edit, menu);
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -204,6 +207,10 @@ public class TodoDetailFragment extends Fragment {
             } else {
                 Toast.makeText(getContext(), "You have already saved this Todo", Toast.LENGTH_SHORT).show();
             }
+        } else if(item.getItemId() == R.id.action_edit){
+            Intent intent = new Intent(getActivity(), AddTodoActivity.class);
+            intent.putExtra("todo", Parcels.wrap(mTodo));
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

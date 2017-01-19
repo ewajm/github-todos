@@ -36,7 +36,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity"/>
         </activity>
-        <activity android:name=".ui.AddTodoActivity"/>
+        <activity android:name=".ui.AddTodoActivity"
+                  android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".ui.SavedReposActivity"/>
         <activity android:name=".ui.SavedTodosActivity"/>
         <activity android:name=".ui.IntroActivity"

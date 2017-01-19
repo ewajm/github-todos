@@ -30,4 +30,6 @@
     <string name="add_note">Add Note</string>
     <string name="no_saved_repos">No saved repos yet, please go to the Github section of the App and find some to save</string>
     <string name="save_todo">Save Todo</string>
+    <string name="edit">Edit</string>
+    <string name="cancel">Cancel</string>
 </resources>

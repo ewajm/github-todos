@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.epicodus.githubtodos.ui.TodoDetailFragment"
-    android:background="@color/colorPrimaryDark"
-    android:paddingRight="26dp"
-    android:paddingLeft="26dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="5dp">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.epicodus.githubtodos.ui.TodoDetailFragment"
+                android:background="@color/colorPrimaryDark"
+                android:paddingRight="26dp"
+                android:paddingLeft="26dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="5dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,78 +46,79 @@
         android:layout_height="wrap_content"
         android:text="Todo Title"
         android:layout_below="@id/statsLinearLayout"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:id="@+id/todoTitleTextView"
         android:textColor="@color/colorDivider"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="date"
-        android:id="@+id/createdTextView"
-        android:layout_below="@+id/todoTitleTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimaryLight"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="website"
-        android:id="@+id/websiteTextView"
-        android:layout_below="@+id/createdTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimaryLight"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/bodyTextView"
-        android:visibility="gone"
-        android:layout_below="@+id/websiteTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="16sp"
-        android:textColor="@color/colorIcons"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/notesScrollView"
-        android:layout_below="@+id/bodyTextView"
+        android:layout_below="@+id/todoTitleTextView"
         android:layout_above="@+id/addNoteLinearLayout">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/notesTitleTextView"
-            android:text="Notes:"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="16sp"
-            android:layout_marginTop="5dp"
-            android:visibility="gone"
-            android:textColor="@color/colorAccent"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/notesTextView"
-            android:text="no notes yet!"
-            android:layout_below="@+id/notesTitleTextView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="16sp"
-            android:visibility="gone"
-            android:textColor="@color/colorIcons"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="date"
+                android:id="@+id/createdTextView"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryLight"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="website"
+                android:id="@+id/websiteTextView"
+                android:layout_below="@+id/createdTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryLight"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/bodyTextView"
+                android:visibility="gone"
+                android:layout_below="@+id/websiteTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="16sp"
+                android:textColor="@color/colorIcons"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/notesTitleTextView"
+                android:text="Notes:"
+                android:layout_below="@id/bodyTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"
+                android:textColor="@color/colorAccent"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/notesTextView"
+                android:text="no notes yet!"
+                android:layout_below="@+id/notesTitleTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="16sp"
+                android:visibility="gone"
+                android:textColor="@color/colorIcons"/>
         </RelativeLayout>
     </ScrollView>
     <LinearLayout

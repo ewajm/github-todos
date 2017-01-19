@@ -126,15 +126,50 @@
 
         </LinearLayout>
 
-
-        <Button
-            android:id="@+id/addTodoButton"
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save"
-            android:padding="15dp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/colorIcons" />
+            android:hint="Notes"
+            android:ems="10"
+            android:nextFocusDown="@+id/addTodoButton"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/colorDivider"
+            android:textSize="20sp"
+            android:minLines="2"
+            android:maxLines="3"
+            android:scrollbars="vertical"
+            android:inputType="textMultiLine"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/white"
+            android:id="@+id/notesEditText"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/addTodoButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/colorIcons" />
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/colorIcons" />
+        </LinearLayout>
+
 
     </LinearLayout>
 
